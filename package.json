@@ -10,6 +10,7 @@
     "smoke-install": "python scripts/smoke-install.py",
     "smoke-links": "bash scripts/smoke-links.sh",
     "smoke-profile": "python scripts/smoke-profile.py",
+    "smoke-workflow": "python scripts/smoke-workflow.py",
     "list-skills": "bash scripts/list-skills.sh",
     "sync-plugin-version": "node scripts/sync-plugin-version.mjs",
     "sync-plugin-version:check": "node scripts/sync-plugin-version.mjs --check",

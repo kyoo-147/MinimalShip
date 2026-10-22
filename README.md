@@ -21,23 +21,26 @@ It is a workflow and a set of composable instructions. It is not a coding model,
 A MinimalShip cycle aims to leave:
 
 1. one user outcome and a clear MUST / NOT NOW boundary
-2. one compact `RUN.md` record
-3. one runnable vertical slice when the environment allows it
-4. exact verification commands and factual PASS / FAIL / BLOCKED results
-5. a SHIP, REVISE, or BLOCKED decision grounded in observed behavior
+2. one `FEATURES.md` inventory when feature tracking is needed
+3. one compact `RUN.md` record for the current cycle
+4. one runnable vertical slice when the environment allows it
+5. exact verification commands and factual PASS / FAIL / BLOCKED results
+6. a SHIP, REVISE, or BLOCKED decision grounded in observed behavior
 
 ## Core loop
 
 | Phase | Question | Proof of progress |
 |---|---|---|
-| READ REALITY | What exists and what can actually run? | Repository facts and available commands |
-| ASK | Which decisions are still owned by the user? | One accepted outcome and permission contract |
-| SPEC | What behavior is in and out? | `RUN.md` and acceptance cases |
+| UNDERSTAND | What exists and what can actually run? | Repository facts and available commands |
+| CLARIFY | Which decisions are still owned by the user? | One accepted outcome and permission contract |
+| SPECIFY | What behavior is in and out? | `FEATURES.md`, `RUN.md` and acceptance cases |
 | PLAN | What is the smallest dependency-aware slice? | Owned tasks with checks |
+| APPROVE | Is execution authorized for this scope? | Explicit approval or implementation instruction |
 | DISPATCH | Which work is safe to parallelize? | Verified orchestrator, cap, and task envelopes |
 | BUILD | Does the critical path work end to end? | Runnable increment |
 | VERIFY | What did we actually execute? | Evidence and failure cases |
 | SHIP | Can another person use and review it? | Branch, PR, merge, and post-merge verification when authorized |
+| IMPROVE | What did observed use teach us? | A measured next product decision |
 
 Quick clarification is the default. Deep grilling is available when ambiguity could change product behavior, architecture, or safety.
 
@@ -75,7 +78,8 @@ py .\scripts\profile-status.py
 pi
 ```
 
-On first use, an incomplete profile reports `BLOCKED: PROFILE_INCOMPLETE` and lists the questions in `templates/profile/PROFILE-QUESTIONS.md`.
+A missing or partial profile does not block ordinary project inspection or planning; the normal status is `PASS: PROFILE_OPTIONAL` or `PASS: PROFILE_PARTIAL` with neutral defaults.
+Use `py .\scripts\profile-status.py --require permissions` or `--require dispatch` only when the current action needs that execution boundary. Use `--require profile` when the user explicitly wants a completed private profile; it can then report `BLOCKED: PROFILE_INCOMPLETE` and list the questions in `templates/profile/PROFILE-QUESTIONS.md`.
 Answer with a concrete value, `not applicable`, or `use neutral defaults`.
 Never commit the completed private profile to the public repository.
 
@@ -96,7 +100,7 @@ MinimalShip/
 │   ├── in-progress/                 # Experimental, not promoted
 │   └── deprecated/                  # Retired, not promoted
 ├── references/                      # Root workflow guidance, including profile boundary
-├── templates/                       # RUN, spec, ADR, and private-profile shapes
+├── templates/                       # FEATURES, RUN, spec, ADR, and private-profile shapes
 │   └── profile/                     # Neutral templates and first-run questions
 ├── handbook/                        # Public human-facing skill pages
 ├── .agents/                         # Invocation, release, and authoring rules
@@ -151,6 +155,12 @@ This repository keeps `docs/`, `analysis/`, and `.local/` local-only by project 
 
 MinimalShip keeps product development in scope: discovery, specification, prototyping, implementation, debugging, testing, review, release preparation, and bounded orchestration. It does not prescribe fundraising, founder identity, family decisions, age, investment outcomes, or startup theater. It does not copy or redistribute third-party source archives.
 
+## Project state
+
+When a project needs explicit feature tracking, `FEATURES.md` is the product inventory: it distinguishes existing verified behavior from requested work and owns feature priority, status and acceptance criteria. `RUN.md` is the current-cycle checkpoint: it owns the objective, decisions, approved execution policy, task ownership, active workers, evidence, blockers and exact next action. The root workflow does not create a separate status or backlog file by default.
+
+MinimalShip plans before execution. It may create or update these two state files while researching, then presents the execution proposal. Code-changing work and worker dispatch begin only after explicit approval or an implementation instruction.
+
 ## Maintainer checks
 
 ```bash
@@ -160,6 +170,7 @@ node scripts/sync-plugin-version.mjs --check
 python scripts/smoke-install.py
 python scripts/smoke-links.sh
 python scripts/smoke-profile.py
+python scripts/smoke-workflow.py
 python scripts/init-profile.py --help
 python scripts/profile-status.py --help
 ```

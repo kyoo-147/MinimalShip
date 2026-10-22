@@ -18,6 +18,10 @@ REMOVED_PATHS = {
     "sources",
 }
 REQUIRED_ROOT_MARKERS = (
+    "UNDERSTAND",
+    "CLARIFY",
+    "SPECIFY",
+    "APPROVE",
     "READ REALITY",
     "ASK",
     "SPEC",
@@ -26,11 +30,16 @@ REQUIRED_ROOT_MARKERS = (
     "BUILD",
     "VERIFY",
     "SHIP",
+    "IMPROVE",
+    "FEATURES.md",
+    "RUN.md",
     "PASS",
     "FAIL",
     "BLOCKED",
     "PROFILE GATE",
     "PROFILE_INCOMPLETE",
+    "PROFILE_OPTIONAL",
+    "neutral defaults",
 )
 REQUIRED_REFERENCES = (
     "references/grilling.md",
@@ -40,6 +49,7 @@ REQUIRED_REFERENCES = (
     "references/profile.md",
 )
 REQUIRED_TEMPLATES = (
+    "templates/FEATURES.md",
     "templates/RUN.md",
     "templates/SPEC.md",
     "templates/ADR.md",
@@ -128,9 +138,16 @@ def validate_root(root: Path) -> None:
     for relative in (*REQUIRED_REFERENCES, *REQUIRED_TEMPLATES, *REQUIRED_PROFILE_TEMPLATES):
         if not (root / relative).is_file():
             fail(f"missing required public artifact: {relative}")
-    for helper in ("scripts/init-profile.py", "scripts/profile-status.py", "scripts/smoke-install.py", "scripts/smoke-links.sh", "scripts/smoke-profile.py"):
+    for helper in (
+        "scripts/init-profile.py",
+        "scripts/profile-status.py",
+        "scripts/smoke-install.py",
+        "scripts/smoke-links.sh",
+        "scripts/smoke-profile.py",
+        "scripts/smoke-workflow.py",
+    ):
         if not (root / helper).is_file():
-            fail(f"missing profile helper: {helper}")
+            fail(f"missing validation helper: {helper}")
     profile_questions = read_text(root / "templates/profile/PROFILE-QUESTIONS.md")
     missing_profile_groups = [f"P{index:02d}." for index in range(1, 11) if f"P{index:02d}." not in profile_questions]
     if missing_profile_groups:

@@ -1,7 +1,7 @@
 # MinimalShip private profile
 
 This file belongs to the person or team using MinimalShip.
-It is a private configuration layer, not part of the public skill bundle.
+It is a private preference and policy layer, not part of the public skill bundle.
 Keep it outside any public repository.
 
 ## Status
@@ -13,7 +13,7 @@ Keep it outside any public repository.
 - profile_root: ?
 - last_reviewed: ?
 
-A `?` means unknown and must be answered before a profile-aware MinimalShip run starts.
+A `?` means unknown. Ordinary project work may continue with neutral defaults, but a profile cannot be applied as complete until its required fields and modules are explicit.
 `not applicable` and `use neutral defaults` are valid explicit answers.
 
 ## Modules
@@ -33,7 +33,15 @@ Do not copy a personal profile into the public MinimalShip repository.
 Do not commit credentials, tokens, private paths, recovery archives or machine-specific settings.
 The public bundle provides neutral templates and a question list only.
 
-## First-run contract
+## Runtime contract
 
-Read `PROFILE-QUESTIONS.md` and answer every required question before applying personal preferences.
-If this file is incomplete, report `BLOCKED: PROFILE_INCOMPLETE` and show the unanswered questions.
+- No profile: continue safe local inspection and planning with neutral defaults.
+- Partial profile: apply only explicit values; ask only for a missing preference or execution boundary that matters to the current action.
+- Complete profile: apply the completed modules without exposing their contents.
+- Before worker dispatch or external effects, require explicit execution policy or a one-time approval. Do not infer permissions from silence.
+
+## Completion rule
+
+A profile is complete only when every required module has an explicit answer, the checklist is checked, and no required field remains `?` or blank.
+Use `python scripts/profile-status.py --require profile` for the strict full-profile check.
+Use `--require permissions` or `--require dispatch` when only an execution boundary must be resolved.

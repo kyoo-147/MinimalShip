@@ -1,5 +1,9 @@
 # Pi, Herdr, and external execution
 
+## Execution approval
+
+Planning does not authorize code-changing workers. Dispatch only after an explicit implementation instruction or approval of the current `RUN.md` proposal. Before dispatch, confirm only unresolved worker, model, thinking, cap, budget, orchestrator, worktree and permission settings; reuse settled values.
+
 ## Roles
 
 - **Pi** is the lead agent, model host, coding surface, and decision owner.

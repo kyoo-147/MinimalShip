@@ -4,6 +4,8 @@ description: Execute a complete spec as a dependency-aware task graph on one int
 disable-model-invocation: true
 ---
 
+Require an approved execution proposal or an explicit implementation instruction before dispatch. Planning completion alone is not permission to spawn workers.
+
 # Implement Spec
 
 - Validate the spec and task graph before spawning anything.
