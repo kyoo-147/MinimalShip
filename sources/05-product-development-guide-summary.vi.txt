@@ -1,0 +1,72 @@
+﻿Thông điệp cốt lõi: Xây dựng sản phẩm theo chu kỳ ngắn, có mục tiêu rõ ràng, đo lường được kết quả và liên tục cải tiến dựa trên dữ liệu thực tế.
+Mỗi chu kỳ tạo ra một vòng phản hồi mới từ người dùng và dữ liệu.
+- 1. Xác định chu kỳ phát triển (Development Cycle)
+* Web app: Có thể dùng chu kỳ ngắn.
+* Mobile app: Socialcam sử dụng 2 tuần.
+* Hardware: Có thể cần chu kỳ dài hơn.
+* Mỗi công việc phải hoàn thành trong một chu kỳ; nếu quá lớn, chia nhỏ.
+
+- 1. Xác định chu kỳ phát triển (Development Cycle)
+* Web app: Có thể dùng chu kỳ ngắn.
+* Mobile app: Socialcam sử dụng 2 tuần.
+* Hardware: Có thể cần chu kỳ dài hơn.
+* Mỗi công việc phải hoàn thành trong một chu kỳ; nếu quá lớn, chia nhỏ.
+- 2. Đặt mục tiêu và chọn người phụ trách
+* Chỉ tập trung vào một mục tiêu chính mỗi chu kỳ.
+* Ví dụ: tăng người dùng mới, tăng lượng nội dung tạo ra, tăng tỷ lệ giữ chân.
+* Chỉ định Product Lead điều phối và đảm bảo tiến độ.
+* Tổ chức một cuộc họp lập kế hoạch vào đầu chu kỳ.
+- 3. Brainstorm ý tưởng
+* Mọi thành viên đều được đề xuất.
+* Chia ý tưởng thành 3 nhóm: tính năng mới/cải tiến, bảo trì/sửa lỗi, A/B testing.
+* Không bác bỏ hay phán xét ý tưởng trong giai đoạn thu thập.
+- 4. Ước lượng và ưu tiên
+* Easy: Có thể hoàn thành nhiều việc trong một ngày.
+* Medium: Khoảng nửa ngày/người.
+* Hard: Chiếm phần lớn chu kỳ.
+* Đánh giá và thống nhất ưu tiên từ Hard → Medium → Easy.
+* Phân biệt Must-have (bắt buộc) với Nice-to-have (có thể bỏ).
+- 5. Viết đặc tả và phân công
+* Mỗi đầu việc cần mô tả rõ ràng.
+* Có người chịu trách nhiệm cụ thể.
+* Xác định kết quả cần đạt.
+* Thiết lập analytics trước khi phát hành tính năng.
+- 6. Phát triển và kiểm thử
+* Sau khi thống nhất kế hoạch, tập trung thực thi, hạn chế họp không cần thiết.
+* Product Lead theo dõi dữ liệu, lỗi và phản hồi người dùng.
+* Socialcam dành 3 ngày cuối chu kỳ để kiểm thử.
+* Dùng checklist regression test, cập nhật với tính năng mới và chạy toàn bộ checklist hai lần.
+* Cả nhóm cùng chịu trách nhiệm kiểm thử.
+- 7. Đánh giá và bắt đầu chu kỳ mới
+* Kiểm tra KPI thực tế.
+* Phân tích tính năng hiệu quả và không hiệu quả.
+* Thu thập phản hồi trực tiếp từ người dùng (Socialcam cố gắng thực hiện hàng tháng).
+* Quyết định cải tiến, loại bỏ hoặc mở rộng tính năng.
+* Lập kế hoạch chu kỳ tiếp theo dựa trên dữ liệu mới, không phụ thuộc cứng nhắc vào roadmap dài hạn.
+
+Y Combinator
++1
+2. Những sai lầm YC muốn startup tránh
+Sai lầm
+	Cách xử lý
+	Xây sản phẩm quá hoàn chỉnh trước khi ra mắt
+	Phát triển MVP, cải tiến dần
+	Chu kỳ kéo dài nhiều tháng
+	Chia nhỏ, phát hành thường xuyên
+	Họp quá nhiều, không ghi quyết định
+	Có cuộc họp lập kế hoạch và đầu việc rõ ràng
+	Không đo hiệu quả tính năng
+	Định nghĩa KPI và analytics từ đầu
+	Roadmap quá dài, cứng nhắc
+	Ưu tiên theo chu kỳ và dữ liệu
+	Founder quyết định mọi thứ thiếu minh bạch
+	Cho đội ngũ tham gia đóng góp và thống nhất
+	Phát triển xong nhưng không kiểm thử đầy đủ
+	Dành thời gian riêng cho QA và regression test
+	Tác giả cho biết quy trình giúp Socialcam thử nghiệm nhanh nhiều tính năng, cải thiện phối hợp nội bộ và hạn chế tranh cãi. Tuy nhiên, Socialcam vẫn không đạt được tầm nhìn sản phẩm ban đầu. Đây là kết quả tác giả thuật lại, không phải cam kết rằng quy trình sẽ tạo ra tăng trưởng tương tự.
+Xây đúng nhu cầu người dùng, không chỉ xây thứ mình thích.
+Ra mắt phiên bản nhỏ có giá trị thực tế.
+Mỗi tính năng phải có mục tiêu và cách đo lường.
+Chỉ tập trung vào những việc quan trọng nhất.
+Phát hành → Thu thập dữ liệu → Cải tiến → Lặp lại.
+Kết luận: Theo cách tiếp cận của Michael Seibel, năng lực phát triển sản phẩm của startup không chỉ nằm ở tốc độ viết code, mà ở khả năng liên tục tạo ra, kiểm chứng và cải thiện giá trị cho người dùng.
