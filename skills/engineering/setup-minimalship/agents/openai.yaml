@@ -1,0 +1,6 @@
+---
+interface:
+  display_name: "Set Up MinimalShip"
+  short_description: "Set Up MinimalShip for focused product work"
+policy:
+  allow_implicit_invocation: false

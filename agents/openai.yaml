@@ -1,0 +1,5 @@
+interface:
+  display_name: "MinimalShip"
+  short_description: "Build and verify focused product increments"
+policy:
+  allow_implicit_invocation: false

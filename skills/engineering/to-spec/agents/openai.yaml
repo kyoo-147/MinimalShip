@@ -1,0 +1,6 @@
+---
+interface:
+  display_name: "To Spec"
+  short_description: "To Spec for focused product work"
+policy:
+  allow_implicit_invocation: false

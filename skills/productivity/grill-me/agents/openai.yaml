@@ -1,0 +1,6 @@
+---
+interface:
+  display_name: "Grill Me"
+  short_description: "Grill Me for focused product work"
+policy:
+  allow_implicit_invocation: false

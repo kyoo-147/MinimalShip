@@ -1,0 +1,22 @@
+{
+  "name": "minimalship-skills",
+  "version": "0.4.0",
+  "private": true,
+  "description": "MinimalShip product skills for focused product delivery.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "check": "python scripts/check.py",
+    "list-skills": "bash scripts/list-skills.sh",
+    "sync-plugin-version": "node scripts/sync-plugin-version.mjs",
+    "sync-plugin-version:check": "node scripts/sync-plugin-version.mjs --check"
+  },
+  "keywords": [
+    "product-development",
+    "engineering",
+    "tdd",
+    "code-review",
+    "pi",
+    "herdr"
+  ]
+}

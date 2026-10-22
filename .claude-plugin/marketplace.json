@@ -1,0 +1,22 @@
+{
+  "name": "minimalship",
+  "owner": {
+    "name": "MinimalShip contributors",
+    "url": "https://github.com/kyoo-147/MinimalShip"
+  },
+  "description": "Focused product-development skills for building, testing, and improving useful software.",
+  "plugins": [
+    {
+      "name": "minimalship-skills",
+      "source": "./",
+      "description": "Composable product-development skills with a Pi and Herdr-friendly workflow.",
+      "category": "engineering",
+      "keywords": [
+        "product-development",
+        "engineering",
+        "tdd",
+        "code-review"
+      ]
+    }
+  ]
+}

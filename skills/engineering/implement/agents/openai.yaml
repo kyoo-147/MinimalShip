@@ -1,0 +1,6 @@
+---
+interface:
+  display_name: "Implement"
+  short_description: "Implement for focused product work"
+policy:
+  allow_implicit_invocation: false

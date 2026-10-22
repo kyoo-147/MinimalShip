@@ -1,70 +1,199 @@
 #!/usr/bin/env python3
-"""Check MinimalShip skill artifacts and preserved source files."""
+"""Validate the public MinimalShip bundle without third-party dependencies."""
 
-import hashlib
+from __future__ import annotations
+
 import json
+import subprocess
+import sys
 from pathlib import Path
+from typing import NoReturn
+
+TEXT_SUFFIXES = {".md", ".yaml", ".yml", ".json", ".py", ".sh", ".mjs", ".txt"}
+REMOVED_PATHS = {
+    "README.vi.md",
+    "references/complete-line-index.md",
+    "references/yc-comprehensive.vi.md",
+    "references/yc-principles.md",
+    "sources",
+}
+REQUIRED_ROOT_MARKERS = (
+    "READ REALITY",
+    "ASK",
+    "SPEC",
+    "PLAN",
+    "DISPATCH",
+    "BUILD",
+    "VERIFY",
+    "SHIP",
+    "PASS",
+    "FAIL",
+    "BLOCKED",
+)
+REQUIRED_REFERENCES = (
+    "references/grilling.md",
+    "references/orchestration.md",
+    "references/product-principles.md",
+    "references/distribution.md",
+)
+REQUIRED_TEMPLATES = (
+    "templates/RUN.md",
+    "templates/SPEC.md",
+    "templates/ADR.md",
+)
 
 
-def read_text(path: Path, encoding: str) -> str:
+def fail(message: str) -> NoReturn:
+    raise SystemExit(f"FAIL: {message}")
+
+
+def read_text(path: Path) -> str:
     try:
-        return path.read_text(encoding=encoding)
+        return path.read_text(encoding="utf-8")
     except OSError as exc:
-        raise SystemExit(f"Could not read {path}: {exc}") from exc
+        fail(f"cannot read {path}: {exc}")
 
 
-def read_bytes(path: Path) -> bytes:
+def load_json(path: Path) -> dict:
     try:
-        return path.read_bytes()
-    except OSError as exc:
-        raise SystemExit(f"Could not read {path}: {exc}") from exc
-
-
-def load_manifest(path: Path) -> dict[str, str]:
-    try:
-        return json.loads(read_text(path, "utf-8"))
+        value = json.loads(read_text(path))
     except json.JSONDecodeError as exc:
-        raise SystemExit(f"Invalid JSON in {path}: {exc}") from exc
+        fail(f"invalid JSON in {path}: {exc}")
+    if not isinstance(value, dict):
+        fail(f"expected an object in {path}")
+    return value
+
+
+def frontmatter(path: Path) -> dict[str, str]:
+    lines = read_text(path).splitlines()
+    if not lines or lines[0].strip() != "---":
+        fail(f"{path} must start with YAML frontmatter")
+    try:
+        end = lines.index("---", 1)
+    except ValueError:
+        fail(f"{path} has an unterminated YAML frontmatter block")
+    result: dict[str, str] = {}
+    for line in lines[1:end]:
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        if ":" not in line:
+            fail(f"{path} has an unsupported frontmatter line: {line}")
+        key, value = line.split(":", 1)
+        result[key.strip()] = value.strip().strip('"')
+    return result
+
+
+def git_files(root: Path) -> set[str]:
+    try:
+        result = subprocess.run(
+            ["git", "ls-files"],
+            cwd=root,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return set()
+    return {line.strip().replace("\\", "/") for line in result.stdout.splitlines() if line.strip()}
+
+
+def validate_root(root: Path) -> None:
+    skill_path = root / "SKILL.md"
+    if not skill_path.is_file():
+        fail("missing root SKILL.md")
+    fm = frontmatter(skill_path)
+    if fm.get("name") != "minimalship":
+        fail("root SKILL.md must declare name: minimalship")
+    if not fm.get("description"):
+        fail("root SKILL.md is missing a description")
+    root_text = read_text(skill_path)
+    missing = [marker for marker in REQUIRED_ROOT_MARKERS if marker not in root_text]
+    if missing:
+        fail(f"root SKILL.md is missing workflow markers: {', '.join(missing)}")
+    for relative in (*REQUIRED_REFERENCES, *REQUIRED_TEMPLATES):
+        if not (root / relative).is_file():
+            fail(f"missing required public artifact: {relative}")
+
+
+def validate_skill(root: Path, bucket: str, skill_dir: Path, root_readme: str, plugin_skills: set[str]) -> None:
+    name = skill_dir.name
+    skill_path = skill_dir / "SKILL.md"
+    metadata_path = skill_dir / "agents" / "openai.yaml"
+    handbook_path = root / "handbook" / bucket / f"{name}.md"
+    if not skill_path.is_file() or not metadata_path.is_file():
+        fail(f"{bucket}/{name} needs SKILL.md and agents/openai.yaml")
+    fm = frontmatter(skill_path)
+    if fm.get("name") != name or not fm.get("description"):
+        fail(f"{skill_path} has invalid name or description metadata")
+    metadata = read_text(metadata_path)
+    if "interface:" not in metadata or "display_name:" not in metadata or "short_description:" not in metadata:
+        fail(f"{metadata_path} is missing interface metadata")
+    explicit = "disable-model-invocation: true" in skill_path.read_text(encoding="utf-8")
+    implicit_blocked = "allow_implicit_invocation: false" in metadata
+    if explicit != implicit_blocked:
+        fail(f"invocation policy mismatch for {skill_path}")
+    if not handbook_path.is_file():
+        fail(f"missing handbook page: {handbook_path.relative_to(root)}")
+    expected_link = f"skills/{bucket}/{name}/SKILL.md"
+    bucket_link = f"./{name}/SKILL.md"
+    bucket_readme = read_text(root / "skills" / bucket / "README.md")
+    if bucket_link not in bucket_readme or expected_link not in root_readme:
+        fail(f"{expected_link} is missing from a README index")
+    if f"./skills/{bucket}/{name}" not in plugin_skills:
+        fail(f"{expected_link} is missing from .claude-plugin/plugin.json")
+
+
+def validate_public_content(root: Path, tracked: set[str]) -> None:
+    for removed in REMOVED_PATHS:
+        if (root / removed).exists():
+            fail(f"removed path still exists: {removed}")
+    for path in tracked:
+        if path.startswith(("docs/", "analysis/", ".local/")):
+            fail(f"local-only path is tracked: {path}")
+    for path in root.rglob("*"):
+        relative = path.relative_to(root)
+        if any(part in {".git", "docs", "analysis", ".local", "scripts"} for part in relative.parts):
+            continue
+        if path.is_file() and path.suffix.lower() in TEXT_SUFFIXES:
+            text = path.read_text(encoding="utf-8")
+            if "Pasted text" in text or "complete-line-index" in text or "yc-comprehensive" in text:
+                fail(f"raw or removed-source marker remains in {relative}")
 
 
 def main() -> int:
     root = Path(__file__).resolve().parents[1]
-    skill_path = root / "SKILL.md"
-    template_path = root / "templates" / "RUN.md"
-    manifest_path = root / "sources" / "SHA256.json"
-    index_path = root / "references" / "complete-line-index.md"
+    validate_root(root)
+    tracked = git_files(root)
+    validate_public_content(root, tracked)
 
-    if not skill_path.is_file() or not template_path.is_file():
-        raise SystemExit("Missing required MinimalShip skill artifact")
+    package = load_json(root / "package.json")
+    plugin = load_json(root / ".claude-plugin" / "plugin.json")
+    if package.get("version") != plugin.get("version"):
+        fail("package.json and .claude-plugin/plugin.json versions differ")
+    if plugin.get("name") != "minimalship-skills":
+        fail("plugin.json has the wrong package name")
+    plugin_skills = set(plugin.get("skills", []))
+    root_readme = read_text(root / "README.md")
+    found: list[str] = []
+    for bucket in ("engineering", "productivity"):
+        bucket_dir = root / "skills" / bucket
+        if not bucket_dir.is_dir():
+            fail(f"missing promoted skill bucket: {bucket}")
+        for skill_dir in sorted(path for path in bucket_dir.iterdir() if path.is_dir()):
+            validate_skill(root, bucket, skill_dir, root_readme, plugin_skills)
+            found.append(f"./skills/{bucket}/{skill_dir.name}")
+    if set(found) != plugin_skills:
+        fail("plugin.json skills list does not match the promoted skill tree")
+    for bucket in ("misc", "in-progress", "deprecated"):
+        if not (root / "skills" / bucket / "README.md").is_file():
+            fail(f"missing structural bucket README: {bucket}")
+    root_agent = read_text(root / "agents" / "openai.yaml")
+    if "display_name:" not in root_agent or "allow_implicit_invocation: false" not in root_agent:
+        fail("root agents/openai.yaml has invalid metadata")
 
-    skill = read_text(skill_path, "utf-8")
-    required = ("ASK", "DISPATCH", "VERIFY")
-    if not skill.startswith("---\nname: minimalship\n") or any(
-        marker not in skill for marker in required
-    ):
-        raise SystemExit("SKILL.md has an invalid MinimalShip skill header or workflow")
-
-    manifest = load_manifest(manifest_path)
-    index = read_text(index_path, "utf-8")
-    for name, expected in manifest.items():
-        source_path = root / "sources" / name
-        digest = hashlib.sha256(read_bytes(source_path)).hexdigest()
-        if digest != expected:
-            raise SystemExit(f"SHA-256 mismatch: {name}")
-
-        lines = read_text(source_path, "utf-8-sig").splitlines()
-        if f"SOURCE: {name} (" not in index:
-            raise SystemExit(f"Missing source index entry: {name}")
-        if f"[{len(lines):04d}]" not in index:
-            raise SystemExit(f"Missing source line count: {name}")
-
-    print(
-        "PASS: MinimalShip skill structure and all original bytes/line counts verified:",
-        len(manifest),
-        "unique sources",
-    )
+    print(f"PASS: MinimalShip bundle validated: {len(found)} promoted skills, {len(REQUIRED_REFERENCES)} references, {len(REQUIRED_TEMPLATES)} templates")
     return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    sys.exit(main())
