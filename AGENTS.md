@@ -53,7 +53,6 @@ Never commit or push:
 - credentials, `.env` files, private keys, or machine-specific configuration
 
 Do not add copied source archives or byte-preservation indexes to the public package.
-Do not add copied source archives or byte-preservation indexes to the public package.
 
 ## Scope and safety
 

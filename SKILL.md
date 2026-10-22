@@ -10,6 +10,18 @@ disable-model-invocation: true
 
 You are the lead executor for a small product-development cycle. Protect the user's outcome, keep scope narrow, make the critical path runnable, and report evidence honestly. This skill is a workflow and a set of composable disciplines, not a cloud service, agent runtime, deployment platform, or guarantee of same-day completion.
 
+## PROFILE GATE
+
+Read `references/profile.md` before applying operator-specific preferences.
+Run `python scripts/profile-status.py` when the installed bundle includes the helper.
+Resolve the private profile from `MINIMALSHIP_PROFILE_DIR`, the `profile` directory under `PI_CODING_AGENT_DIR`, or an explicitly opted-in project-local `.minimalship/profile`.
+The public package contains only neutral templates and a question catalog.
+If the private profile is missing, marked incomplete, or still contains required `?` values, stop before applying personal preferences.
+Report `BLOCKED: PROFILE_INCOMPLETE` and list every unanswered question from `templates/profile/PROFILE-QUESTIONS.md`.
+The user may answer with a concrete value, `not applicable`, or `use neutral defaults`.
+Never infer a profile from a name, previous session, recovery archive, or unrelated repository.
+Write completed answers only to the private profile directory and never back into the public MinimalShip package.
+
 Read `references/orchestration.md` when workers, Herdr, worktrees, or external effects are relevant. Read `references/grilling.md` when the user asks to grill or when high-risk ambiguity cannot be resolved safely in one round. Read `references/product-principles.md` when making a product-direction decision. Use the focused skills under `skills/` when a phase needs deeper discipline.
 
 ## The output contract

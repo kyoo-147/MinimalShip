@@ -7,9 +7,13 @@
   "type": "module",
   "scripts": {
     "check": "python scripts/check.py",
+    "smoke-install": "python scripts/smoke-install.py",
+    "smoke-links": "bash scripts/smoke-links.sh",
     "list-skills": "bash scripts/list-skills.sh",
     "sync-plugin-version": "node scripts/sync-plugin-version.mjs",
-    "sync-plugin-version:check": "node scripts/sync-plugin-version.mjs --check"
+    "sync-plugin-version:check": "node scripts/sync-plugin-version.mjs --check",
+    "init-profile": "python scripts/init-profile.py",
+    "profile-status": "python scripts/profile-status.py"
   },
   "keywords": [
     "product-development",

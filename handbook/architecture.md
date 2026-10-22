@@ -4,11 +4,11 @@ MinimalShip keeps one stable root workflow and a set of focused promoted skills.
 
 ## Root workflow
 
-`SKILL.md` is installed as `/skill:minimalship`. It owns the product-development loop, output contract, Pi and Herdr boundary guidance, and the default Quick mode.
+`SKILL.md` is installed as `/skill:minimalship`. It owns the product-development loop, output contract, Pi and Herdr boundary guidance, and the default Quick mode. The installer keeps this root bundle intact for its references and templates.
 
 ## Promoted skills
 
-`skills/engineering` and `skills/productivity` contain focused `SKILL.md` files. Each is independently discoverable and has an `agents/openai.yaml` metadata file. User-invoked skills are explicit; model-invoked skills are reusable disciplines.
+`skills/engineering` and `skills/productivity` contain focused `SKILL.md` files. Each is independently discoverable and has an `agents/openai.yaml` metadata file. The installer copies each promoted directory as a sibling of `minimalship/`, because Pi stops descending when it finds a `SKILL.md` at a directory root. User-invoked skills are explicit; model-invoked skills are reusable disciplines.
 
 ## Public documentation
 

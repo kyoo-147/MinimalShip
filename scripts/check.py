@@ -29,17 +29,32 @@ REQUIRED_ROOT_MARKERS = (
     "PASS",
     "FAIL",
     "BLOCKED",
+    "PROFILE GATE",
+    "PROFILE_INCOMPLETE",
 )
 REQUIRED_REFERENCES = (
     "references/grilling.md",
     "references/orchestration.md",
     "references/product-principles.md",
     "references/distribution.md",
+    "references/profile.md",
 )
 REQUIRED_TEMPLATES = (
     "templates/RUN.md",
     "templates/SPEC.md",
     "templates/ADR.md",
+)
+REQUIRED_PROFILE_TEMPLATES = (
+    "templates/profile/PROFILE.md",
+    "templates/profile/PROFILE-QUESTIONS.md",
+    "templates/profile/VOICE.md",
+    "templates/profile/OPINIONS.md",
+    "templates/profile/BUILD_PLAYBOOK.md",
+    "templates/profile/TASTE_UI.md",
+    "templates/profile/RESEARCH_TASTE.md",
+    "templates/profile/UI_TESTING.md",
+    "templates/profile/ORCHESTRATION.md",
+    "templates/profile/PERMISSIONS.md",
 )
 
 
@@ -110,9 +125,16 @@ def validate_root(root: Path) -> None:
     missing = [marker for marker in REQUIRED_ROOT_MARKERS if marker not in root_text]
     if missing:
         fail(f"root SKILL.md is missing workflow markers: {', '.join(missing)}")
-    for relative in (*REQUIRED_REFERENCES, *REQUIRED_TEMPLATES):
+    for relative in (*REQUIRED_REFERENCES, *REQUIRED_TEMPLATES, *REQUIRED_PROFILE_TEMPLATES):
         if not (root / relative).is_file():
             fail(f"missing required public artifact: {relative}")
+    for helper in ("scripts/init-profile.py", "scripts/profile-status.py", "scripts/smoke-install.py", "scripts/smoke-links.sh"):
+        if not (root / helper).is_file():
+            fail(f"missing profile helper: {helper}")
+    profile_questions = read_text(root / "templates/profile/PROFILE-QUESTIONS.md")
+    missing_profile_groups = [f"P{index:02d}." for index in range(1, 11) if f"P{index:02d}." not in profile_questions]
+    if missing_profile_groups:
+        fail(f"profile question catalog is missing groups: {', '.join(missing_profile_groups)}")
 
 
 def validate_skill(root: Path, bucket: str, skill_dir: Path, root_readme: str, plugin_skills: set[str]) -> None:
@@ -152,7 +174,7 @@ def validate_public_content(root: Path, tracked: set[str]) -> None:
             fail(f"local-only path is tracked: {path}")
     for path in root.rglob("*"):
         relative = path.relative_to(root)
-        if any(part in {".git", "docs", "analysis", ".local", "scripts"} for part in relative.parts):
+        if any(part in {".git", "docs", "analysis", ".local", ".pi", ".minimalship", "scripts"} for part in relative.parts):
             continue
         if path.is_file() and path.suffix.lower() in TEXT_SUFFIXES:
             text = path.read_text(encoding="utf-8")

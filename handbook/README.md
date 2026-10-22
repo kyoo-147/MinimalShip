@@ -13,3 +13,7 @@ See [productivity](productivity/README.md) for interviews, handoffs, questionnai
 ## Architecture
 
 See [architecture](architecture.md) for the bundle shape, promotion contract, and composition rules.
+
+## Profiles
+
+See [profile](profile.md) for the public/private boundary, first-run questionnaire, and separate Pi profile setup.

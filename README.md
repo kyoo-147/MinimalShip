@@ -61,7 +61,25 @@ Then run Pi with:
 /skill:minimalship Build a working prototype of <goal> and verify the primary user journey.
 ```
 
-The installer copies the root skill bundle only. It does not install Pi, Herdr, an orchestrator, dependencies, credentials, or cloud tooling.
+## Separate private profile
+
+MinimalShip keeps the public bundle neutral.
+Personal voice, opinions, UI taste, research habits, orchestration policy and permissions live in a separate profile directory.
+
+```powershell
+py .\scripts\init-profile.py --agent-dir "$env:USERPROFILE\.pi\profiles\minimalship"
+py .\scripts\install.py --profile "$env:USERPROFILE\.pi\profiles\minimalship" --force
+$env:PI_CODING_AGENT_DIR = "$env:USERPROFILE\.pi\profiles\minimalship"
+$env:MINIMALSHIP_PROFILE_DIR = "$env:USERPROFILE\.pi\profiles\minimalship\profile"
+py .\scripts\profile-status.py
+pi
+```
+
+On first use, an incomplete profile reports `BLOCKED: PROFILE_INCOMPLETE` and lists the questions in `templates/profile/PROFILE-QUESTIONS.md`.
+Answer with a concrete value, `not applicable`, or `use neutral defaults`.
+Never commit the completed private profile to the public repository.
+
+The installer installs the root bundle at `minimalship/` and each of the 27 promoted skills as a sibling directory so Pi can discover `/skill:minimalship` and `/skill:<promoted-name>` independently. It does not install Pi, Herdr, an orchestrator, dependencies, credentials, or cloud tooling.
 
 ## Bundle architecture
 
@@ -77,8 +95,9 @@ MinimalShip/
 │   ├── misc/                        # Optional, not promoted
 │   ├── in-progress/                 # Experimental, not promoted
 │   └── deprecated/                  # Retired, not promoted
-├── references/                      # Root workflow guidance
-├── templates/                       # RUN, spec, and ADR shapes
+├── references/                      # Root workflow guidance, including profile boundary
+├── templates/                       # RUN, spec, ADR, and private-profile shapes
+│   └── profile/                     # Neutral templates and first-run questions
 ├── handbook/                        # Public human-facing skill pages
 ├── .agents/                         # Invocation, release, and authoring rules
 ├── .claude-plugin/                  # Plugin and marketplace manifests
@@ -138,9 +157,13 @@ MinimalShip keeps product development in scope: discovery, specification, protot
 python scripts/check.py
 bash scripts/list-skills.sh
 node scripts/sync-plugin-version.mjs --check
+python scripts/smoke-install.py
+python scripts/smoke-links.sh
+python scripts/init-profile.py --help
+python scripts/profile-status.py --help
 ```
 
-Run the installer smoke test against a temporary project before changing the distribution boundary. Use `npm run check` when Node package metadata is available.
+Run `python scripts/smoke-install.py` against a temporary profile before changing the distribution boundary. Use `bash scripts/link-skills.sh --check <target>` to inspect link conflicts, and pass `--force` only when replacement is deliberate. Use `npm run check` when Node package metadata is available.
 
 ## Architecture reference
 
