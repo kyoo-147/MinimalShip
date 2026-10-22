@@ -128,7 +128,7 @@ def validate_root(root: Path) -> None:
     for relative in (*REQUIRED_REFERENCES, *REQUIRED_TEMPLATES, *REQUIRED_PROFILE_TEMPLATES):
         if not (root / relative).is_file():
             fail(f"missing required public artifact: {relative}")
-    for helper in ("scripts/init-profile.py", "scripts/profile-status.py"):
+    for helper in ("scripts/init-profile.py", "scripts/profile-status.py", "scripts/smoke-install.py", "scripts/smoke-links.sh"):
         if not (root / helper).is_file():
             fail(f"missing profile helper: {helper}")
     profile_questions = read_text(root / "templates/profile/PROFILE-QUESTIONS.md")

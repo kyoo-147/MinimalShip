@@ -47,7 +47,7 @@
 | T3 | Composable promoted skill set and metadata | Lead | `skills/` | T1 | H | DONE |
 | T4 | Plugin, handbook, governance, and index files | Lead | `.agents/`, `.claude-plugin/`, `handbook/`, `.github/`, root docs | T3 | H | DONE |
 | T5 | Installer and structural validation | Lead | `scripts/`, `package.json` | T2-T4 | M | DONE |
-| T6 | Removal, tests, diff review, and delivery | Lead | repository-wide | T5 | M | IN REVIEW |
+| T6 | Removal, tests, diff review, and delivery | Lead | repository-wide | T5 | M | DONE |
 
 ## Evidence and decisions
 - Reference architecture: cached public skill repository used as a structural model only.
@@ -55,4 +55,4 @@
 - Decision: retain the product-development ideas and Pi/Herdr boundaries, but remove vendor-specific orchestrator instructions and raw/copy-preserving source machinery.
 - Decision: use `handbook/` for public docs because `docs/` is local-only in this repository.
 - Known limitation: historical Git commits still contain removed source material. This change removes it from the current tree without rewriting shared history.
-- Next action: review the full diff, commit with a Conventional Commit, push the branch, open a PR, wait for checks and review, then verify the merged result.
+- Delivery status: baseline bundle merged into `main` as `687de12`; follow-up installer hardening is tracked on a focused branch.

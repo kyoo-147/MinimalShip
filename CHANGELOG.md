@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Fixed installation so the root skill and all 27 promoted skills are copied as flat Pi-discoverable siblings.
+- Added installer conflict protection, disposable install smoke tests, and safe link conflict checks.
+
 ## 0.4.0 - unreleased
 
 - Rebuilt MinimalShip as an original English product-development skill bundle.
