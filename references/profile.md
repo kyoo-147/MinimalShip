@@ -1,12 +1,12 @@
 # Profile boundary
 
-MinimalShip separates the public workflow from the private preferences of the person or team using it.
+MinimalShip separates the public workflow from private operator preferences and execution policy.
 
 ## Three layers
 
 1. **Public bundle**: neutral English instructions, templates, question lists, metadata and validation.
-2. **Private operator profile**: voice, opinions, build playbook, UI taste, research taste, testing, orchestration and permission rules.
-3. **Project state**: repository instructions, `RUN.md`, decisions, code, tests and project-specific constraints.
+2. **Private operator profile**: optional voice, opinions, build playbook, UI taste, research taste, testing, orchestration and permission rules.
+3. **Project state**: repository instructions, `FEATURES.md`, `RUN.md`, decisions, code, tests and project-specific constraints.
 
 The public repository must not contain a person's name, private voice, machine paths, credentials, recovery archive or unverified personal configuration.
 
@@ -38,25 +38,35 @@ When a profile-aware run starts, resolve the private profile in this order:
 
 A profile from one user or machine must never be silently reused for another project or person.
 
-## First-run gate
+## Optional preference layer
 
-If the profile is absent, marked `incomplete`, or contains unanswered `?` values, stop before applying personal preferences.
-Use `python scripts/profile-status.py` to perform the deterministic readiness check when the helper is installed.
-Report:
+A missing profile is not a project blocker.
+Continue safe repository inspection, clarification, specification and local planning with neutral defaults.
+A partial profile is also not a global blocker: apply only explicit values and ask only for a missing preference that affects the current decision.
+Never infer private preferences from a name, previous session, recovery archive or unrelated repository.
 
-```text
-BLOCKED: PROFILE_INCOMPLETE
+`python scripts/profile-status.py` reports `PASS: PROFILE_OPTIONAL`, `PASS: PROFILE_PARTIAL`, or `PASS: PROFILE_COMPLETE` for this normal path.
+
+## Scoped execution gates
+
+Permissions and worker policy are different from optional style preferences.
+Before an action that needs them, use the narrowest check:
+
+```powershell
+py .\scripts\profile-status.py --require permissions
+py .\scripts\profile-status.py --require dispatch
 ```
 
-Then list every unanswered question from `templates/profile/PROFILE-QUESTIONS.md`.
-The user may answer the questions, choose `use neutral defaults`, or mark a section `not applicable`.
-The agent must not infer personal preferences from a name, previous session, recovery folder or unrelated repository.
+If the required boundary is unresolved, report a scoped `BLOCKED` result and ask for only that decision, or obtain a one-time explicit approval.
+Do not require unrelated voice, UI, research or style answers before ordinary development.
 
-After the user answers, write the completed profile only to the private profile directory.
-Do not write answers back into the public MinimalShip package.
+## Full profile check
 
-## Completion rule
+When the user explicitly wants a completed personal profile, use:
 
-A profile is complete when every required module has an explicit answer and no required field remains `?`.
-A project may still have its own unresolved product questions in `RUN.md`.
-Those are separate from the operator profile and must be asked by the normal MinimalShip workflow.
+```powershell
+py .\scripts\profile-status.py --require profile
+```
+
+That strict command reports `BLOCKED: PROFILE_INCOMPLETE` and lists the profile questions when the selected profile is incomplete.
+Answers belong only in the private profile directory and never in the public MinimalShip package.

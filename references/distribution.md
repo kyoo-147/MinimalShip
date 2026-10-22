@@ -8,7 +8,7 @@ MinimalShip has three layers:
 
 The repository also carries Claude-style plugin manifests and Codex metadata so compatible harnesses can discover the same promoted set. These manifests do not change Pi's runtime behavior.
 
-The installer never downloads dependencies, runs hooks, copies credentials, or includes local-only `docs/`, `analysis/`, `.local/`, `.pi/`, `.minimalship/`, `.git/`, or repository governance files. It refuses existing root or promoted skill paths unless `--force` is supplied. Use `scripts/link-skills.sh --check <target>` to inspect symlink conflicts before using `--force` in a symlink-capable environment.
+The installer never downloads dependencies, runs hooks, copies credentials, or includes local-only `docs/`, `analysis/`, `.local/`, `.pi/`, `.minimalship/`, `.git/`, repository governance files or project state such as `FEATURES.md` and `RUN.md`. It refuses existing root or promoted skill paths unless `--force` is supplied. A forced replacement is staged and previous paths are restored when a later move fails. Use `scripts/link-skills.sh --check <target>` to inspect symlink conflicts before using `--force` in a symlink-capable environment.
 
 ## Private profile distribution
 

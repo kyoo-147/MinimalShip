@@ -26,3 +26,4 @@ jobs:
       - run: python scripts/smoke-install.py
       - run: bash scripts/smoke-links.sh
       - run: python scripts/smoke-profile.py
+      - run: python scripts/smoke-workflow.py

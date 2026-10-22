@@ -23,4 +23,15 @@ test -f "$target/implement/sentinel.txt"
 
 bash "$linker" --force "$target" >/dev/null
 test ! -e "$target/implement/sentinel.txt"
+
+# Replacing a symlink must remove the link itself, never its target.
+outside="$(mktemp -d -t minimalship-links-outside.XXXXXX)"
+trap 'rm -rf -- "$target" "$outside"' EXIT
+printf 'must survive symlink replacement' > "$outside/sentinel.txt"
+rm -rf -- "$target/implement"
+if ln -s "$outside" "$target/implement" 2>/dev/null; then
+  bash "$linker" --force "$target" >/dev/null
+  test -f "$outside/sentinel.txt"
+fi
+
 printf 'PASS: link helper checks conflicts and replaces only with --force\n'

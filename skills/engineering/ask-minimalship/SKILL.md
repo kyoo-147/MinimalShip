@@ -22,3 +22,5 @@ Use this router when a request could follow more than one product-development pa
 - The work is complete and the environment should improve: use `retro`.
 
 Do not route by fashion. Route by the next unresolved decision and the smallest artifact that can settle it. Never invoke two competing orchestration flows for the same task.
+
+When the request is a new project or an existing repository to investigate, route through understanding and planning first: inspect the project, update `FEATURES.md` and `RUN.md`, present the execution proposal, and wait for approval unless the user's original instruction already authorizes implementation. Do not dispatch workers as a side effect of routing.

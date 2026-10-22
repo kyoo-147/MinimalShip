@@ -15,3 +15,5 @@ disable-model-invocation: true
 - Prefer a local Markdown table when no issue tracker is configured.
 
 A ticket is ready only when an implementer can start without asking what "done" means.
+
+Keep the resulting task IDs and ownership in `RUN.md`; update the corresponding rows in `FEATURES.md` only when a feature status changes. Do not create a second task tracker.

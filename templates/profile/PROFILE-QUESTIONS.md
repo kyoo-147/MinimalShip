@@ -2,6 +2,7 @@
 
 Answer every question with a concrete value, `not applicable`, or `use neutral defaults`.
 Do not infer answers from a name, repository, previous session, or personal archive.
+Do not complete this catalog before ordinary project inspection or planning. P01-P07 and P10 are optional preference and recovery context. Resolve P08 only when worker dispatch is being considered and P09 only when the current action needs a permission boundary. A one-time explicit approval may replace a missing private answer for a single local action.
 
 ## P01. Profile and context
 

@@ -2,14 +2,14 @@
 
 ## Modes
 
-- **Quick**, the default: one compact round covering only missing outcome, MUST / NOT NOW scope, acceptance, execution policy, budget, and permissions.
+- **Quick**, the default: one compact round covering only missing outcome, MUST / NOT NOW scope, acceptance and the next decision. Ask execution policy, budget and permissions only when implementation or dispatch is authorized or being considered.
 - **Deep**, explicit or risk-triggered: a dependency-ordered decision tree for product, architecture, and safety choices.
 
 ## Decision frontier
 
 Build a private tree:
 
-`outcome -> user journey -> constraints -> acceptance -> execution -> release risk`
+`outcome -> user journey -> constraints -> acceptance -> approval -> execution -> release risk`
 
 Ask only questions whose prerequisites are settled. The agent should inspect facts from the repository and tools. The user owns product choices, trade-offs, authority, and irreversible effects.
 
