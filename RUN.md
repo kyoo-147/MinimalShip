@@ -9,8 +9,8 @@ This is the active-cycle checkpoint for the research-grounded major update. The 
 - Mode: release
 - Current MUST scope (feature IDs): F7, F8, F9, F10
 - Current NOT NOW scope: P2 context/memory/telemetry optimization, new promoted skills, vendored external repositories, cloud/EAS operations, release tag and merge bypass
-- Exact next action: review the complete diff, commit the verified v0.5 slice, push the branch and open a focused PR
-- Last meaningful update: integrated bounded E01-E08 and routing outputs, repaired workflow/check/template integration, and completed the deterministic local gate
+- Exact next action: wait for PR #8 review and CI recovery; if billing/auth blockers clear, rerun Actions and the explicit evaluator before considering merge
+- Last meaningful update: committed `fef70a2`, pushed `feat/major-update-evals-routing`, and opened stacked PR #8 against `feat/refine-workflow-state`
 
 ## Confirmed decisions
 
@@ -67,7 +67,7 @@ This is the active-cycle checkpoint for the research-grounded major update. The 
 - Last verified: structural, workflow, routing, eval-schema, compile, diff, Pi-loader, Herdr and deterministic runtime checks passed; live gaps remain BLOCKED
 - Settled requirements: preserve 27 skills; add E01-E08 behavior evidence; opt-in official routing; no auto-install/deploy; two isolated workers; honest PASS/FAIL/BLOCKED
 - Current blockers: native/device runtime unavailable for E08; default `gpt-6.1-sol` selection remains unsupported; GitHub billing lock and unavailable native/cloud services remain
-- Exact next action after resume: review the complete diff, commit with a Conventional Commit, push the branch and open the focused PR
+- Exact next action after resume: inspect PR #8 review/CI status; do not merge while CI is billing-blocked or required review is absent
 - Do not repeat: prior F1-F6 installer/profile/workflow implementation, source audit or worker implementation work
 
 ## Verification and evidence
