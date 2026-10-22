@@ -159,6 +159,7 @@ bash scripts/list-skills.sh
 node scripts/sync-plugin-version.mjs --check
 python scripts/smoke-install.py
 python scripts/smoke-links.sh
+python scripts/smoke-profile.py
 python scripts/init-profile.py --help
 python scripts/profile-status.py --help
 ```

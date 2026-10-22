@@ -10,6 +10,7 @@ import sys
 from pathlib import Path
 
 QUESTION_RE = re.compile(r"^(?:## P\d+\.|\d+\.\s)")
+UNRESOLVED_FIELD_RE = re.compile(r"^-\s+[^:]+:\s*\?$")
 REQUIRED_MODULES = (
     "VOICE.md",
     "OPINIONS.md",
@@ -42,6 +43,10 @@ def print_questions(path: Path) -> None:
     print("Answer every question below, or explicitly use `not applicable` or `use neutral defaults`.")
     for line in questions(path):
         print(f"- {line}")
+
+
+def unresolved_fields(profile_text: str) -> list[str]:
+    return [line.strip() for line in profile_text.splitlines() if UNRESOLVED_FIELD_RE.match(line.strip())]
 
 
 def main() -> int:
@@ -80,7 +85,7 @@ def main() -> int:
         (line.strip() for line in profile_text.splitlines() if line.strip().startswith("- status:")),
         "- status: incomplete",
     )
-    if "status: complete" not in status_line.lower() or "?" in profile_text or "[ ]" in profile_text:
+    if "status: complete" not in status_line.lower() or unresolved_fields(profile_text) or "[ ]" in profile_text:
         print("BLOCKED: PROFILE_INCOMPLETE")
         print(f"Profile: {profile_dir}")
         print_questions(public_questions)
