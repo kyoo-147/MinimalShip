@@ -9,7 +9,7 @@
 3. **Not determined enough / Thiếu quyết tâm** (75–83): quyết tâm được tác giả xem là một trong các yếu tố dự báo mạnh nhất; tự khởi xướng dự án và bền bỉ với công việc là dấu hiệu có thể quan sát, nhưng mức quyết tâm thay đổi khi trưởng thành.
 4. **Not smart enough / Không đủ thông minh** (84–90): không phải mọi startup đều cần nghiên cứu công nghệ đỉnh cao; nhiều lĩnh vực thành công bằng nỗ lực và giải quyết vấn đề. Đừng biến việc tự đánh giá IQ thành lý do bất động.
 5. **Know nothing about business / Không biết kinh doanh** (91–103): trước tiên xây sản phẩm người dùng thật sự muốn; kiến thức kinh doanh và phương án doanh thu có thể học theo giai đoạn. **Bối cảnh lịch sử:** tác giả nêu các niềm tin lạc quan về monetization và M&A của giai đoạn đó; đây không phải xác suất hay lời bảo đảm cho mọi startup năm 2026.
-6. **No cofounder / Không có đồng sáng lập** (104–116): tác giả xem đây là thiếu sót thực sự và khuyên tìm người đã hợp tác thử, thay vì đối tác chỉ quen sơ. Người học còn đi học có môi trường quan hệ thuận lợi. **Áp dụng MINFLOW:** đây là lời khuyên về thành lập doanh nghiệp, không phải yêu cầu phải có cofounder mới được chạy một prototype bằng agent.
+6. **No cofounder / Không có đồng sáng lập** (104–116): tác giả xem đây là thiếu sót thực sự và khuyên tìm người đã hợp tác thử, thay vì đối tác chỉ quen sơ. Người học còn đi học có môi trường quan hệ thuận lợi. **Áp dụng MinimalShip:** đây là lời khuyên về thành lập doanh nghiệp, không phải yêu cầu phải có cofounder mới được chạy một prototype bằng agent.
 7. **No idea / Không có ý tưởng** (117–127): founder và năng lực làm ra sản phẩm quan trọng hơn ý tưởng đầu tiên; ý tưởng có thể thay đổi mạnh theo phản hồi. Tác giả lấy ví dụ chính sách YC thời đó, khoảng 70% ý tưởng có thể thay đổi trong 3 tháng đầu (ước lượng lịch sử). Ý tưởng có gốc từ thiếu hụt thực tế của bản thân đáng tin hơn “ai cũng sẽ dùng”.
 8. **No room for more startups / Không còn chỗ trên thị trường** (128–134): không có định luật giới hạn số startup; nhu cầu và cách phục vụ mới có thể mở ra liên tiếp. M&A không phải là nguồn giá trị duy nhất. Đây là lập luận kinh tế của tác giả, không phải dự báo chắc chắn.
 9. **Family to support / Phải nuôi gia đình** (135–143): rủi ro tài chính và trách nhiệm người thân là trở ngại thật. Tác giả nêu lối đi thu nhập từ tư vấn dần chuyển sang sản phẩm, hoặc tham gia startup hiện hữu; không hứa rằng phương án đó sẽ thành công lớn.
@@ -23,7 +23,7 @@
 
 **Mở bài & ghi chú:** Paul Graham dựa trên khoá YC đầu tiên (mùa hè 2005, 8 startup) để bàn về tâm lý những người lưỡng lự; các ước lượng tỉ lệ thành công không phải thống kê cập nhật/đại diện. Các ví dụ Reddit/Infogami, Loopt, Kiko và Justin.tv phải đọc như lịch sử, không phải điều kiện thị trường hiện nay. Phần **Notes** chứa bổ sung và ngoại lệ được bảo tồn nguyên văn trong bản chỉ mục; không dùng làm chính sách mặc định cho coding agent.
 
-**Giá trị cho MINFLOW:** (a) đánh giá năng lực bằng khả năng tự bắt đầu và bàn giao; (b) không phức tạp hóa kỹ thuật vì thiếu tự tin; (c) hiểu rủi ro công khai; (d) quyết đoán thực thi trong giới hạn trách nhiệm và nguồn lực.
+**Giá trị cho MinimalShip:** (a) đánh giá năng lực bằng khả năng tự bắt đầu và bàn giao; (b) không phức tạp hóa kỹ thuật vì thiếu tự tin; (c) hiểu rủi ro công khai; (d) quyết đoán thực thi trong giới hạn trách nhiệm và nguồn lực.
 
 ---
 
@@ -64,7 +64,7 @@
 
 **Notes 135–159:** bảo tồn các ngoại lệ về lắng nghe, giáo dục, kỹ thuật, thời điểm bắt đầu và giải thích phụ trợ trong `complete-line-index.md`.
 
-**Giá trị cho MINFLOW:** (a) buộc hỏi “điều người dùng thật sự cần” và acceptance; (b) chống startup theater/ceremonial engineering; (c) chấp nhận những vòng thử nhanh; (d) giữ workflow nhỏ, không sở hữu toàn bộ quy trình sống của người dùng.
+**Giá trị cho MinimalShip:** (a) buộc hỏi “điều người dùng thật sự cần” và acceptance; (b) chống startup theater/ceremonial engineering; (c) chấp nhận những vòng thử nhanh; (d) giữ workflow nhỏ, không sở hữu toàn bộ quy trình sống của người dùng.
 
 ---
 
@@ -130,7 +130,7 @@
 
 **Notes (198–242):** các ghi chú đánh số [1]–[17], ví dụ và ngoại lệ nằm đầy đủ trong bản chỉ mục gốc. Không lược bỏ câu chữ nguồn khỏi gói.
 
-**Giá trị cho MINFLOW:** trước mỗi feature, phải trả lời ai đang cần, hành vi nào chứng minh nhu cầu, lộ trình “giếng sâu” đầu tiên, và đo lường gì khi ra bản v1. Không sáng tạo feature vì thông số công nghệ hoặc vì slide đẹp.
+**Giá trị cho MinimalShip:** trước mỗi feature, phải trả lời ai đang cần, hành vi nào chứng minh nhu cầu, lộ trình “giếng sâu” đầu tiên, và đo lường gì khi ra bản v1. Không sáng tạo feature vì thông số công nghệ hoặc vì slide đẹp.
 
 ---
 
@@ -187,7 +187,7 @@
 
 **Notes 123–149:** trích dẫn Emerson; founder phải tự bán hàng giai đoạn đầu; khoảnh khắc momentum của Stripe; YC giúp cân chỉnh tham vọng; khi chưa có kênh tiếp cận user phải cold outreach; tránh giả vờ mình là công ty lớn; nhu cầu user đổi khi sản phẩm xuất hiện; chọn phân khúc nhanh đăng ký hơn phân khúc trả nhiều tiền nếu đang tìm learning; rủi ro phục vụ độc một người; ra mắt phô trương có thể phản tác dụng; Google/Yahoo là quan hệ khách hàng không chỉ “partnership”; thành phần kích hoạt người dùng không thể để trống. Các chú thích vẫn được giữ nguyên trong `sources/`.
 
-**Giá trị cho MINFLOW:** làm theo hướng *one user → one working journey → evidence → improve*, đừng dành nhiều tháng để thiết kế scaling, pipeline và marketing trước khi có core value.
+**Giá trị cho MinimalShip:** làm theo hướng *one user → one working journey → evidence → improve*, đừng dành nhiều tháng để thiết kế scaling, pipeline và marketing trước khi có core value.
 
 ---
 
@@ -227,7 +227,7 @@
 
 ---
 
-## F — Những gì đi thẳng vào bộ MINFLOW, và những gì không
+## F — Những gì đi thẳng vào bộ MinimalShip, và những gì không
 
 | Trực tiếp đi vào workflow | Chỉ lưu trong tham khảo, không thành bước bắt buộc |
 |---|---|
@@ -251,7 +251,7 @@
 
 ## H — Đối chiếu với repo kỹ thuật
 
-- **Matt Pocock Skills:** nhỏ, composable; `grill-with-docs` giúp hỏi rõ nhưng MINFLOW giới hạn câu hỏi còn chưa biết và chỉ hỏi một lượt; `tdd` ưu tiên seam công khai và vertical tests nhưng MINFLOW không bắt ritual TDD cho mọi edit.
+- **Matt Pocock Skills:** nhỏ, composable; `grill-with-docs` giúp hỏi rõ nhưng MinimalShip giới hạn câu hỏi còn chưa biết và chỉ hỏi một lượt; `tdd` ưu tiên seam công khai và vertical tests nhưng MinimalShip không bắt ritual TDD cho mọi edit.
 - **Lavish AXI:** trình soạn/duyệt HTML trực quan, feedback bằng annotation; phù hợp review spec/plan trực quan khi khó nói bằng chữ, **không phải** nền tảng điều phối và không được làm chậm coding.
 - **Herdr:** quản lý pane, tiến trình, workspaces và (khi integration hỗ trợ) worktree. Herdr không tự biết tiêu chí người dùng nếu Lead không đưa vào.
 - **Pi Herdsman:** điều phối phân quyền Lead/Agent/Manager/Chief, phù hợp khi nhiều worker cần ownership rõ; tham khảo tài liệu chính thức và cài đúng phiên bản.

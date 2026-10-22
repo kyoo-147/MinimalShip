@@ -51,6 +51,6 @@ Source: https://github.com/mattpocock/skills
 
 ## G. Official Pi skill format
 Docs: https://pi.dev/docs/latest/skills
-- User install path: `~/.pi/agent/skills/minflow/SKILL.md`; project path: `.pi/skills/minflow/SKILL.md`.
-- Invoke: `/skill:minflow <goal>` (or skill discovery by description).
+- User install path: `~/.pi/agent/skills/minimalship/SKILL.md`; project path: `.pi/skills/minimalship/SKILL.md`.
+- Invoke: `/skill:minimalship <goal>` (or skill discovery by description).
 - Copy/installation only. It cannot spawn agents until running inside a configured Pi+Herdr session.
