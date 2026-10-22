@@ -15,6 +15,7 @@ def ignored(source: Path):
         excluded = {
             ".git",
             ".pi",
+            ".minimalship",
             ".local",
             ".github",
             ".changeset",
@@ -45,6 +46,11 @@ def main() -> int:
         type=Path,
         help="Project directory into which .pi/skills/minimalship is installed",
     )
+    group.add_argument(
+        "--profile",
+        type=Path,
+        help="Separate Pi agent/profile directory into which skills/minimalship is installed",
+    )
     parser.add_argument(
         "--force",
         action="store_true",
@@ -56,11 +62,12 @@ def main() -> int:
     if not (source / "SKILL.md").is_file():
         raise SystemExit(f"Invalid MinimalShip source directory: {source}")
 
-    destination = (
-        Path.home() / ".pi" / "agent" / "skills" / SKILL_NAME
-        if args.global_install
-        else args.project.expanduser().resolve() / ".pi" / "skills" / SKILL_NAME
-    )
+    if args.global_install:
+        destination = Path.home() / ".pi" / "agent" / "skills" / SKILL_NAME
+    elif args.project is not None:
+        destination = args.project.expanduser().resolve() / ".pi" / "skills" / SKILL_NAME
+    else:
+        destination = args.profile.expanduser().resolve() / "skills" / SKILL_NAME
     if source.resolve() == destination.resolve():
         print("Already installed:", destination)
         return 0
@@ -83,6 +90,8 @@ def main() -> int:
 
     print("Installed:", destination)
     print("Included: root workflow, references, templates, promoted skills, and public metadata")
+    if args.profile is not None:
+        print("Profile runtime: set PI_CODING_AGENT_DIR to the selected profile directory")
     print("Open Pi and run /skill:minimalship <task>")
     return 0
 
