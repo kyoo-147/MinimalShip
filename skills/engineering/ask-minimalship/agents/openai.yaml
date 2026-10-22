@@ -1,0 +1,6 @@
+---
+interface:
+  display_name: "Ask MinimalShip"
+  short_description: "Ask MinimalShip for focused product work"
+policy:
+  allow_implicit_invocation: false

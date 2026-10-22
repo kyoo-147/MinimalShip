@@ -1,0 +1,6 @@
+---
+interface:
+  display_name: "Wayfinder"
+  short_description: "Wayfinder for focused product work"
+policy:
+  allow_implicit_invocation: false

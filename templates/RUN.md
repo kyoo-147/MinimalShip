@@ -1,14 +1,15 @@
-# MinimalShip RUN — <project> / <date>
+# MinimalShip RUN - <project> / <date>
 
 ## Outcome
 - User/problem:
 - Deadline and deliverable:
-- One success measure:
+- One primary outcome:
+- One leading measure:
 
 ## Scope
 - MUST:
 - NOT NOW:
-- Constraints/assumptions:
+- Constraints and assumptions:
 
 ## Acceptance / demo
 | ID | Real input/action | Expected result | Evidence | Status |
@@ -17,25 +18,25 @@
 | A2 | | | | NOT RUN |
 | A3 | | | | NOT RUN |
 
-## Execution policy (approve before spawning)
+## Execution policy
 - Lead CLI/model/thinking/fast mode:
 - Worker CLI/model/thinking/fast mode:
 - Reviewer CLI/model/thinking/fast mode:
-- Orchestrator: pi-herdsman OR pi-herdr (one only)
+- Orchestrator: one verified integration or none
 - Max workers / budget:
-- Allowed working tree / tools / downloads / external calls / deployment:
+- Allowed edits, tools, downloads, network, cloud, deployment:
 - Explicit approval needed for:
 
 ## Tasks
 | ID | Vertical output | Owner | Paths/worktree | Depends | Size | Status |
 |---|---|---|---|---|---|---|
-| T1 | Runnable skeleton / critical-path spike | Lead | | none | E | TODO |
-| T2 | Primary user journey | worker-1 | | T1 | M | TODO |
-| T3 | Critical verification | worker-2 | | T1 | E | TODO |
+| T1 | Runnable skeleton or reproduction | | | none | E | TODO |
+| T2 | Primary user journey | | | T1 | M | TODO |
+| T3 | Critical verification | | | T1 | E | TODO |
 
 ## Evidence and decisions
-- Run/build command:
+- Run/build/start command:
 - Tests actually executed and results:
-- User-observed feedback / KPI:
+- User-observed feedback / measure:
 - Decision changes and reason:
 - Known limitations / next iteration:

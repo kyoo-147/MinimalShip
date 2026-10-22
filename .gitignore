@@ -1,4 +1,4 @@
-# Local reference material and working analyses — never publish.
+# Local reference material and working analyses - never publish.
 /docs/
 /analysis/
 /.local/
@@ -15,3 +15,9 @@ Thumbs.db
 # Python-generated artifacts.
 __pycache__/
 *.py[cod]
+
+# Local agent/runtime state.
+.pi/
+.ruff_cache/
+node_modules/
+.venv/

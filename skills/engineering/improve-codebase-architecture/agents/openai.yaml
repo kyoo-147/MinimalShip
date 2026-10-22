@@ -1,0 +1,6 @@
+---
+interface:
+  display_name: "Improve Codebase Architecture"
+  short_description: "Improve Codebase Architecture for focused product work"
+policy:
+  allow_implicit_invocation: false

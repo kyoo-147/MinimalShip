@@ -1,85 +1,118 @@
 ---
 name: minimalship
-description: MinimalShip's prototype-first software development workflow for Pi Coding Agent with Herdr worker orchestration. Use when building features, fixing bugs, shipping a same-day prototype, coordinating parallel agents, or needing concise spec/plan/test gates without overengineering.
+description: MinimalShip is an English, product-development workflow for Pi Coding Agent and optional Herdr workers. Use when building a focused product increment, fixing a bug, planning a prototype, coordinating bounded agents, or verifying a release without overengineering.
+disable-model-invocation: true
 ---
 
-# MinimalShip — Build what matters. Ship what works.
+# MinimalShip
 
-You are the **Lead/Product Owner's executor**. Optimize for a small, real, verifiably working product, not for maximal documentation, architecture, or agent count. Read `references/orchestration.md` when delegation is useful; read `references/yc-principles.md` only for a deeper product-direction decision.
+**Build what matters. Ship what works. Improve what users need.**
 
-## 0. Read reality before proposing work
+You are the lead executor for a small product-development cycle. Protect the user's outcome, keep scope narrow, make the critical path runnable, and report evidence honestly. This skill is a workflow and a set of composable disciplines, not a cloud service, agent runtime, deployment platform, or guarantee of same-day completion.
 
-- Inspect repository, run instructions, existing tests, configuration, and current behavior. Reuse code and conventions. Do not assume any integration or CLI is installed.
-- Identify whether there is a runnable vertical slice today. If not, plan the smallest credible one.
-- Reuse previously answered requirements. **Never ask again about known decisions.**
-- Never invent test results, running worker counts, or completed integrations.
+Read `references/orchestration.md` when workers, Herdr, worktrees, or external effects are relevant. Read `references/grilling.md` when the user asks to grill or when high-risk ambiguity cannot be resolved safely in one round. Read `references/product-principles.md` when making a product-direction decision. Use the focused skills under `skills/` when a phase needs deeper discipline.
 
-## 1. ASK — one short approval gate, before worker spawn
+## The output contract
 
-Ask only unresolved product decisions, grouped into **one** compact message:
-1. **Outcome**: Who is this for? What exactly must work by the deadline? What will count as accepted? Sample input/output?
-2. **Scope**: Must-have vs optional; target platform, runtime, environment; known constraints and non-goals.
-3. **Worker policy**: Which agent CLI/provider/model(s) for Lead, implementers, reviewers? Thinking level (off/low/medium/high, as supported)? Fast vs quality mode if supported? Max simultaneous workers? Budget/token cap? Permission to use cloud services?
-4. **Risk / deployment**: May workers edit code, start processes, use worktrees, install packages, make network calls, deploy? What requires explicit approval?
+Every run aims to leave:
 
-Present sensible defaults and ask the user to change only unknowns. Treat an existing user instruction as approval for what it explicitly covers, but **never invent approval for unknown paid/destructive/external effects**. When answers arrive, write them once into `RUN.md` and proceed; do not repeat interrogation each subtask. If approval cannot be obtained, prepare a proposed spec/plan and perform only safely authorized local work.
+1. One concrete user outcome and a bounded MUST / NOT NOW scope.
+2. One compact `RUN.md` record with acceptance cases, execution policy, tasks, and evidence.
+3. One runnable vertical slice when the environment permits.
+4. Exact commands and factual PASS, FAIL, or BLOCKED results.
+5. A decision to SHIP, REVISE, or remain BLOCKED based on observed behavior.
 
-## 2. SPEC — max one screen
+## 0. READ REALITY
 
-Create/update project-root `RUN.md` using `templates/RUN.md`. Keep it short and factual:
-- Goal / user and their real pain; why the prototype matters.
-- Exact must-have behavior and 3–7 acceptance checks (inputs → actions → outputs).
-- One leading measure of success plus necessary diagnostics; planned instrumentation, not vanity metrics.
-- In-scope, out-of-scope, constraints, deployment/demo command.
-- Agent model/thinking/budget/permissions decisions.
-- Record assumptions explicitly; resolve blockers only. No essay-length PRD.
+- Inspect the repository, current behavior, instructions, tests, configuration, and available commands.
+- Reuse the existing stack and conventions. Do not assume a CLI, provider, integration, or cloud account is installed.
+- Identify whether a runnable slice exists and where the real user journey begins and ends.
+- Look for already-settled decisions in conversation, `RUN.md`, glossary, ADRs, and recent history. Do not ask again.
+- Never invent worker counts, test results, integrations, or deployments.
 
-**Do not edit, spawn, or build against an ambiguous acceptance condition** when it risks producing the wrong thing. Ask once; if user is unavailable, choose a clearly labeled reversible assumption where safe.
+## 1. ASK
 
-## 3. PLAN — tiny vertical slices
+Ask one compact round for only the decisions still unknown:
 
-- Break into independent, testable results: E2E skeleton → working critical flow → missing must-haves → integration → verify/demo.
-- Each task: ID, outcome, owner, allowed paths/worktree, dependency, acceptance check, size `E/M/H` and status.
-- Prioritize the riskiest hard/critical path early; deliver a running vertical slice quickly. Slice H tasks before parallelizing if possible.
-- Identify single shared contracts (API/DTO/schema) only if strictly necessary; agree them before concurrent edits.
-- Use existing issue tracker only if already in use; otherwise `RUN.md` is sufficient. No new ticket infrastructure.
+- **Outcome:** user, problem, desired result, deadline, and example input/output.
+- **Scope:** MUST, NOT NOW, platform, runtime, constraints, and failure behavior.
+- **Execution:** lead, worker, reviewer, model, thinking or fast mode, worker cap, budget, and worktree policy.
+- **Risk:** permission to edit, install, download, call external services, access cloud dashboards, deploy, migrate, or delete.
 
-## 4. DISPATCH — parallel Herdr workers with explicit ownership
+Give a sensible recommendation for each. Treat an explicit user instruction as approval for that exact effect only. Do not silently approve paid, destructive, credentialed, or external actions.
 
-- Check `pi --version`, `herdr --version`, `herdr status`; identify installed integration.
-- Choose **exactly one** primary orchestrator: `pi-herdsman` **or** `pi-herdr`. Do not let both register competing delegation flows. Follow installed integration's actual docs/tool names, not guessed commands.
-- Use Herdr to supervise visible agents; isolate code-changing workers in separate git worktrees/branches (or strictly distinct file ownership). Never let simultaneous workers mutate the same file.
-- Spawn **as many independent, bounded workers as useful within the approved cap**. More workers only when expected to shorten the critical path; not indiscriminate spam.
-- Each worker receives: scope; file ownership; exact interface/contract; required outcome; verification command; deadline/budget; 'no unrelated refactor'; completion report.
-- Route models/thinking/fast preference from the user's confirmed policy and the selected orchestrator's supported schema. If a provider does not support a mode, report and choose the closest *approved* option.
-- Lead continues useful integration work while workers execute. Monitor blocked/failed/queued/finished and reassign only with a reason. Never treat 'spawned' as 'completed'.
+Use Quick mode by default. Use Deep mode only for an explicit `grill`, `grill-me`, or `grill-with-docs` request, or when an unresolved branch could change behavior, architecture, or safety. See `references/grilling.md`.
 
-## 5. BUILD — minimal working product
+## 2. SPEC
 
-- Favor existing libraries and boring, clear patterns; no speculative abstractions, premature microservices, generalized agent frameworks, design systems, complex CI, or architecture rewrites.
-- Work **vertically** end to end: UI/CLI → core logic → storage/inference/API → real result, with whatever sections apply. Make the first useful path runnable early.
-- Prefer simple manual behind-the-scenes operations **only when transparent and appropriate**; do not represent manual output as automated functionality in testing or demo.
-- Use small targeted tests for critical behavior, existing typecheck/lint, and safe real-environment smoke tests. TDD when it improves confidence, not ritualistically for every trivial edit.
-- Integrate continuously; avoid a pile of long-lived worker branches. Respect user-approved scope and remaining time.
+Create or update the project-root `RUN.md` from `templates/RUN.md` after the decisions are settled. Keep it to one screen where possible:
 
-## 6. VERIFY — truthful acceptance
+- user/problem and one primary outcome
+- MUST / NOT NOW scope and assumptions
+- three to seven input -> action -> expected-result acceptance cases
+- one leading measure plus necessary diagnostics
+- execution policy and permissions
+- demo command and failure behavior
 
-- Run installation/build/start commands, then test the **real user journey** with realistic input, expected output, and failure case. No assertion of success without execution evidence.
-- Run targeted automated tests, relevant regression checks, and one genuine end-to-end smoke; record commands and pass/fail in `RUN.md`.
-- Check correctness, core errors, platform dependencies, logs, permissions/security relevant to the change, and data not lost. Do not add irrelevant exhaustive edge-case suites.
-- When a check fails, diagnose the smallest root cause; fix and rerun. A blocked integration/test remains marked BLOCKED, never PASS.
-- If user explicitly asked for a same-day prototype, prefer a bounded working slice and declare missing optional scope; never pretend completeness.
+Do not edit or spawn against an acceptance condition that is still ambiguous. If the user is unavailable, choose a clearly labelled reversible assumption only when the risk is low.
 
-## 7. SHIP — an actual artifact
+## 3. PLAN
 
-Report only: what runs; where and how; tests actually executed; must-haves PASS/FAIL/BLOCKED; known limitations; next highest-impact user feedback question. Keep future backlog separate. User should be able to run the result, not just read a plan.
+Split the outcome into small, independently verifiable vertical slices:
 
-## Optional Lavish AXI
+- runnable skeleton or reproduction
+- critical user journey
+- missing must-haves
+- integration and migration
+- verification and delivery
 
-For a **complex visual review only**, use the separately installed `lavish` skill or discover current CLI guidance with `npx -y lavish-axi --help`, `design`, `playbook`. Render `RUN.md` into a concise HTML approval board **only if that reduces ambiguity**. Do not require Lavish to begin coding. Do not add a server, UI layer, or approval loop merely for presentation.
+Every task has one output, one owner, allowed paths or worktree, dependencies, size, acceptance check, and status. Keep shared contracts, schemas, manifests, and integration files with one owner. Prefer a local task table when no issue tracker is already in use.
 
-## Never
+## 4. DISPATCH
 
-Never: rebuild unrelated infrastructure; over-document; ask the same question twice; install both default orchestrators; spawn workers before the initial configuration/permission gate; exceed worker cap/budget; claim tests passed without running them; merge conflicting file edits blindly; deploy/charge/delete production assets without explicit permission; trade correctness on must-have behavior for apparent speed.
+Before any worker starts:
 
-**Done means the agreed prototype works and was verified, not that the task list looks busy.**
+- check the installed Pi and Herdr versions and the actual extension/tool surface
+- choose exactly one primary orchestrator, or choose none
+- keep code-changing workers in isolated worktrees or disjoint file ownership
+- send each worker a bounded task envelope from `skills/engineering/implement/task-envelope.md`
+- stay within the approved worker cap, model policy, budget, and permissions
+
+Use workers only when independent ownership shortens the critical path. A spawned pane is not a completed task. The lead owns `RUN.md`, shared interfaces, integration, and final acceptance.
+
+## 5. BUILD
+
+- Work end to end through the smallest useful path.
+- Prefer existing libraries and boring, clear code.
+- Call `tdd` for behavior seams where red -> green feedback reduces risk.
+- Keep manual operations transparent in demos and tests; never present manual work as automation.
+- Avoid speculative abstractions, microservices, broad refactors, and new infrastructure without a current product need.
+- Integrate stable slices continuously instead of accumulating long-lived branches.
+
+## 6. VERIFY
+
+Run the real user journey with representative input and at least one important failure case when the environment allows it. Run focused tests, typechecks, lint, formatting, builds, security checks, migrations, and smoke commands that apply to the changed paths.
+
+Record exact commands and outcomes. Check permissions, secrets, logs, data safety, platform dependencies, and rollback concerns. A green unit test or successful compile is not proof that the product works. If a required check cannot run, mark it BLOCKED and state why.
+
+## 7. SHIP
+
+Review the complete diff for correctness, scope, regressions, secrets, and unnecessary changes. Use the `code-review` and `pr` skills when the change warrants them. Commit with a Conventional Commit, push through a focused branch and pull request, wait for required CI and review, merge only when approved, and verify the merged result. If delivery is not authorized or possible, report the exact boundary instead of implying it happened.
+
+The final report contains only what runs, where and how to run it, checks actually executed, acceptance status, known limitations, and the next highest-impact product question.
+
+## Non-negotiable boundaries
+
+- Product evidence beats startup theater, feature count, and agent count.
+- One cycle has one primary outcome.
+- More documentation is not progress unless it changes a decision or makes verification easier.
+- Cloud, deployment, credentials, and external integrations are explicit risk boundaries, not hidden defaults.
+- Never call an unexecuted check PASS.
+- Never preserve or publish copied source text merely because it was used as inspiration.
+
+## Invocation map
+
+- User-invoked orchestration: `ask-minimalship`, `grill-me`, `grill-with-docs`, `setup-minimalship`, `to-spec`, `to-tickets`, `implement`, `implement-spec`, `triage`, `wayfinder`, `improve-codebase-architecture`, `retro`, `handoff`, `to-questionnaire`, and `teach`.
+- Model-invoked discipline: `grilling`, `domain-modeling`, `codebase-design`, `prototype`, `research`, `tdd`, `diagnosing-bugs`, `code-review`, `pr`, `wizard`, `wait-what`, and `writing-for-agents`.
+
+Invoke a focused skill by name rather than loading the entire bundle into every turn.
