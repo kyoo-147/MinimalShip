@@ -1,0 +1,1 @@
+{"fixture":"E06","checkpoint":{"objective":"verify one vertical slice","settled_decisions":["MUST scope is F7","no deployment"],"blockers":["CI unavailable"],"exact_next_action":"run the focused smoke test"}}
