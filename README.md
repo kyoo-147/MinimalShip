@@ -2,63 +2,63 @@
 
 **Build what matters. Ship what works. Improve what users need.**
 
-MinimalShip là bộ sản phẩm được xây dựng từ nhu cầu thật: bắt đầu với một vấn đề cụ thể, đưa phiên bản nhỏ có giá trị đến tay người dùng, rồi liên tục cải tiến dựa trên phản hồi và dữ liệu thực tế.
+MinimalShip is a product-building workspace grounded in real user needs: start with a specific problem, ship the smallest valuable version, and continuously improve it through user feedback and real-world data.
 
-Đây cũng là không gian chung để phát triển mã nguồn, bộ skill và công cụ phục vụ quá trình làm sản phẩm.
+It is also the shared space for developing our products, reusable skills, tools, and working practices.
 
-## Triết lý sản phẩm
+## Product philosophy
 
 ### Build what matters
 
-- Bắt đầu từ vấn đề có thật, không từ một danh sách tính năng hay công nghệ đang thịnh hành.
-- Hiểu rõ người dùng là ai, họ đang gặp khó khăn gì và hiện giải quyết bằng cách nào.
-- Phục vụ tốt một nhóm người dùng cụ thể trước khi mở rộng.
-- Mỗi tính năng cần có lý do tồn tại và cách kiểm chứng giá trị.
+- Start with a real problem, not a feature list or a fashionable technology.
+- Understand who the users are, what they struggle with, and how they solve it today.
+- Serve a specific group of users well before expanding.
+- Give every feature a clear reason to exist and a way to validate its value.
 
 ### Ship what works
 
-- Ra mắt phiên bản nhỏ nhất giải quyết được một nhu cầu trọn vẹn.
-- Tối giản phạm vi, không cắt bỏ chất lượng của trải nghiệm cốt lõi.
-- Làm theo chu kỳ ngắn; chia nhỏ những đầu việc chưa thể hoàn thành trong một chu kỳ.
-- Kiểm thử luồng chính và lỗi hồi quy trước khi phát hành.
-- Chấp nhận làm thủ công lúc đầu để hiểu bài toán; tự động hóa khi nút thắt đã rõ.
+- Release the smallest version that solves a complete, meaningful need.
+- Keep the scope small without compromising the quality of the core experience.
+- Work in short cycles; split work that cannot be completed within one cycle.
+- Test the critical paths and protect against regressions before release.
+- Do manual work early when it helps us understand the problem; automate once the bottleneck is clear.
 
 ### Improve what users need
 
-- Chủ động tiếp cận, hỗ trợ và lắng nghe những người dùng đầu tiên.
-- Kết hợp phản hồi trực tiếp với dữ liệu sử dụng, không chỉ dựa vào cảm tính.
-- Đo kết quả mà người dùng đạt được, không lấy số tính năng đã làm làm thước đo thành công.
-- Cải tiến, loại bỏ hoặc mở rộng tính năng dựa trên bằng chứng mới.
+- Reach out to, support, and listen to early users directly.
+- Combine qualitative feedback with usage data instead of relying on assumptions.
+- Measure the outcomes users achieve, not the number of features we ship.
+- Improve, remove, or expand features based on new evidence.
 
-## Cách chúng ta làm việc
+## How we work
 
-**Hiểu vấn đề → Chọn mục tiêu → Xây bản nhỏ → Kiểm thử → Phát hành → Đo lường & lắng nghe → Cải tiến.**
+**Understand the problem → Choose the goal → Build the smallest useful version → Test → Ship → Measure and listen → Improve.**
 
-Mỗi chu kỳ có một mục tiêu chính. Trước khi bắt đầu một đầu việc, cần làm rõ:
+Each cycle has one primary goal. Before starting a piece of work, make the following clear:
 
-1. **Người dùng và vấn đề:** Ai cần việc này? Khó khăn cụ thể là gì?
-2. **Kết quả mong muốn:** Điều gì sẽ tốt hơn sau khi hoàn thành?
-3. **Phạm vi:** Phần nào bắt buộc, phần nào có thể để sau?
-4. **Trách nhiệm:** Ai chịu trách nhiệm hoàn thành?
-5. **Điều kiện hoàn thành:** Kiểm thử thế nào và đo hiệu quả bằng gì?
+1. **User and problem:** Who needs this? What specific difficulty are we addressing?
+2. **Desired outcome:** What should be better when this is done?
+3. **Scope:** What is essential, and what can wait?
+4. **Ownership:** Who is responsible for completing it?
+5. **Definition of done:** How will we test it and measure its impact?
 
-Ưu tiên được điều chỉnh theo những gì học được ở mỗi chu kỳ, thay vì bám cứng vào một roadmap dài hạn.
+Priorities change as we learn during each cycle rather than being locked to a long-term roadmap.
 
-## Nguyên tắc chung cho bộ sản phẩm
+## Shared product principles
 
-- **Tập trung:** Mỗi sản phẩm có một giá trị cốt lõi rõ ràng.
-- **Dễ sử dụng:** Giảm thao tác thừa và giúp người dùng hoàn thành công việc.
-- **Đáng tin cậy:** Tốc độ phát hành không thay thế cho kiểm thử, an toàn dữ liệu và khả năng vận hành.
-- **Vừa đủ:** Chọn giải pháp đơn giản đáp ứng nhu cầu hiện tại; chỉ thêm độ phức tạp khi cần.
+- **Focus:** Every product has a clear core value.
+- **Usability:** Remove unnecessary steps and help users complete their work.
+- **Reliability:** Shipping quickly never replaces testing, data safety, and operational readiness.
+- **Enough is enough:** Choose the simplest solution that meets the current need; add complexity only when it earns its place.
 
-## Mã nguồn, skill và tài liệu
+## Code, skills, and documentation
 
-Repository lưu mã nguồn, bộ skill có thể tái sử dụng và hướng dẫn cần thiết để làm việc với dự án.
+The repository contains source code, reusable skills, and the guidance needed to work on the project.
 
-Tài liệu tham khảo, ghi chú nghiên cứu và các bản phân tích trong quá trình làm việc **chỉ lưu cục bộ**, không commit hoặc push. Các thư mục `docs/`, `analysis/` và `.local/` đã được đưa vào `.gitignore` cho mục đích này.
+Reference material, research notes, and working analyses are **kept local only** and must not be committed or pushed. The `docs/`, `analysis/`, and `.local/` directories are ignored by Git for this purpose.
 
-## Trạng thái
+## Status
 
-Dự án đang ở giai đoạn thiết lập nền tảng. Chưa có sản phẩm được triển khai, stack công nghệ hay lệnh cài đặt/chạy ứng dụng được xác định trong repository.
+The project is currently establishing its foundation. No product, technology stack, or application run command has been defined in the repository yet.
 
-Phần hướng dẫn chạy và kiểm thử sẽ được bổ sung cùng mã nguồn của sản phẩm đầu tiên.
+Setup, development, and testing instructions will be added alongside the first product implementation.
