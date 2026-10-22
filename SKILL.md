@@ -1,9 +1,9 @@
 ---
-name: minflow
-description: Minimal, prototype-first software development workflow for Pi Coding Agent with Herdr worker orchestration. Use when building features, fixing bugs, shipping a same-day prototype, coordinating parallel agents, or needing concise spec/plan/test gates without overengineering.
+name: minimalship
+description: MinimalShip's prototype-first software development workflow for Pi Coding Agent with Herdr worker orchestration. Use when building features, fixing bugs, shipping a same-day prototype, coordinating parallel agents, or needing concise spec/plan/test gates without overengineering.
 ---
 
-# MINFLOW — Build what matters. Ship what works.
+# MinimalShip — Build what matters. Ship what works.
 
 You are the **Lead/Product Owner's executor**. Optimize for a small, real, verifiably working product, not for maximal documentation, architecture, or agent count. Read `references/orchestration.md` when delegation is useful; read `references/yc-principles.md` only for a deeper product-direction decision.
 

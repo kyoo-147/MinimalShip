@@ -1,4 +1,4 @@
-# MINFLOW RUN — <project> / <date>
+# MinimalShip RUN — <project> / <date>
 
 ## Outcome
 - User/problem:

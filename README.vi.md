@@ -1,4 +1,4 @@
-# MINFLOW 0.1 — Bộ skill phát triển sản phẩm tối giản
+# MinimalShip 0.1 — Bộ skill phát triển sản phẩm tối giản
 
 **Mục tiêu:** Làm đúng phần cần thiết → prototype hoạt động sớm → kiểm thử → cải tiến. Không biến ý tưởng nhỏ thành framework lớn, không coi tài liệu là thành quả thay cho code chạy được.
 
@@ -13,7 +13,7 @@
 - `scripts/check.py`: kiểm tra cấu trúc bộ skill, nguồn và bảo đảm không mất dòng.
 
 ## Cài trong Pi
-Giải nén toàn bộ thư mục `MINFLOW/`, sau đó tại chính thư mục chứa `SKILL.md`:
+Giải nén toàn bộ thư mục `MinimalShip/`, sau đó tại chính thư mục chứa `SKILL.md`:
 
 ```bash
 python scripts/install.py --global
@@ -32,7 +32,7 @@ py .\scripts\install.py --project D:\work\my-project
 Sau khi cài, vào **Herdr**, khởi động Pi (hoặc reload), gõ:
 
 ```text
-/skill:minflow Build a working prototype today for <feature>. Ask me once for worker model, thinking, fast mode, limit, budget and approval before spawning.
+/skill:minimalship Build a working prototype today for <feature>. Ask me once for worker model, thinking, fast mode, limit, budget and approval before spawning.
 ```
 
 Skill không tự cài đặt Pi/Herdr/orchestrator và không tự kết nối VPS từ chat này. Phải có `pi` và `herdr` hoạt động trên máy thật để điều phối worker. Trên Windows từng gặp lỗi `pi.ps1` bị chặn bởi PowerShell Execution Policy: có thể kiểm tra nhanh với `pi.cmd --version` trước khi chỉnh policy; không cần tắt bảo vệ toàn hệ thống chỉ để thử.

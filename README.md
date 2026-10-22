@@ -56,9 +56,9 @@ Priorities change as we learn during each cycle rather than being locked to a lo
 The repository contains source code, reusable skills, and the guidance needed to work on the project.
 The repository contains source code, reusable skills, and the guidance needed to work on the project.
 
-## MINFLOW
+## MinimalShip Workflow
 
-This repository includes **MINFLOW**, a prototype-first product development skill for Pi Coding Agent and Herdr. It keeps work focused on a clear outcome, a small runnable slice, bounded worker orchestration, and evidence-based verification.
+This repository includes the **MinimalShip workflow skill**, a prototype-first product development system for Pi Coding Agent and Herdr. It keeps work focused on a clear outcome, a small runnable slice, bounded worker orchestration, and evidence-based verification.
 
 - `SKILL.md` — the operational workflow
 - `templates/RUN.md` — the compact spec, plan, task, and QA record
@@ -67,7 +67,7 @@ This repository includes **MINFLOW**, a prototype-first product development skil
 - `scripts/check.py` — integrity and structure checks
 - `scripts/install.py` — project or global installation
 
-Install it globally on Windows with `py .\\scripts\\install.py --global`, then invoke it in Pi with `/skill:minflow`.
+Install it globally on Windows with `py .\\scripts\\install.py --global`, then invoke it in Pi with `/skill:minimalship`.
 
 Reference material, research notes, and working analyses are **kept local only** and must not be committed or pushed. The `docs/`, `analysis/`, and `.local/` directories are ignored by Git for this purpose.
 
