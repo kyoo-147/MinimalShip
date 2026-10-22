@@ -1,0 +1,13 @@
+# Local reference material and working analyses — never publish.
+/docs/
+/analysis/
+/.local/
+
+# Local credentials and machine-specific configuration.
+.env
+.env.*
+!.env.example
+
+# OS metadata.
+.DS_Store
+Thumbs.db
