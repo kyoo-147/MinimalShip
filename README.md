@@ -6,6 +6,25 @@ MinimalShip is a focused product-development skill bundle for AI coding agents. 
 
 It is a workflow and a set of composable instructions. It is not a coding model, cloud platform, autonomous deployment service, issue-tracker backend, or guarantee of same-day completion.
 
+## Current release
+MinimalShip is currently released as **[v0.5.0](https://github.com/kyoo-147/MinimalShip/releases/tag/v0.5.0)**.
+The release is the merged `main` state and includes the workflow, installer, profile, evaluation and routing updates described below.
+
+### What is implemented now
+
+The current bundle includes 27 promoted skills plus the root `/skill:minimalship` workflow, all discoverable as flat Pi siblings after installation.
+It provides the READ → CLARIFY → FEATURES → SPEC → PLAN → APPROVE → DISPATCH → BUILD → VERIFY → SHIP → ITERATE loop with resumable `FEATURES.md` and `RUN.md` checkpoints.
+It provides safe global, project and profile installation with conflict checks, atomic replacement and rollback coverage.
+It keeps private profiles optional, uses neutral defaults for ordinary planning, and applies scoped permission and dispatch gates to consequential work.
+It includes E01–E08 behavioral evaluation fixtures, deterministic grading, adversarial grader self-tests and runtime reporting.
+It provides opt-in routing for relevant official Cloudflare, Expo/EAS and Vercel guidance without auto-installing, upgrading, deploying or charging.
+It documents evidence-first review, verification, pull requests, merges and post-merge checks.
+
+### Current verification state
+The deterministic bundle, installer, profile, workflow and evaluation checks pass locally.
+The live evaluation adapter and real worker dispatch remain conditional on an authenticated, supported runtime; unavailable capabilities are reported as `BLOCKED`, never presented as `PASS`.
+GitHub Actions is currently blocked before workflow steps by the repository account billing lock. This is an infrastructure limitation, not a reported source-test failure.
+
 ## What it protects against
 
 - building a large solution before validating a narrow need
