@@ -14,7 +14,7 @@ MinimalShip is a compact product-development workflow, not a project-management 
 
 Run this sequence:
 
-**UNDERSTAND → CLARIFY → SPECIFY → PLAN → APPROVE → DISPATCH → BUILD → VERIFY → SHIP → IMPROVE**
+**READ → CLARIFY → FEATURES → SPEC → PLAN → APPROVE → DISPATCH → BUILD → VERIFY → SHIP → ITERATE**
 
 Planning and execution are separate. A plan is not permission to edit product code or start workers.
 
@@ -33,6 +33,14 @@ Never infer private preferences from a name, previous session, recovery archive 
 
 Read `references/orchestration.md` when workers, Herdr, worktrees or external effects are relevant. Read `references/grilling.md` when the user asks to grill or when high-risk ambiguity cannot be resolved safely in one round. Read `references/product-principles.md` when making a product-direction decision. Use the focused skills under `skills/` when a phase needs deeper discipline.
 
+## Stack-aware external routing (optional)
+
+During `READ`, inspect `references/stack-routing.md` only when local project evidence or the user's request suggests Cloudflare, Expo/EAS, React/Next/React Native or relevant UI work. Recommend the smallest official external skill family; do not vendor it, auto-install it, upgrade the existing toolchain, deploy, invoke paid EAS/cloud operations or use credentials. Existing dependencies, lockfiles and configuration remain authoritative. Record the route, source/version evidence, permission state and stack-specific QA in `RUN.md`. Missing browser, native/device or runtime capability is `BLOCKED`, never `PASS`.
+
+## Behavioral evidence
+
+Use `evals/scenarios.json` and `scripts/run-evals.py` for the E01-E08 behavior set when evaluating MinimalShip itself. Structural smoke tests prove contracts and files; they do not prove agent behavior. Live evaluation results must contain executed output and a deterministic grader result. A model/runtime limitation is `BLOCKED`, not a synthetic pass.
+
 ## Output contract
 
 Every run aims to leave:
@@ -46,7 +54,7 @@ Every run aims to leave:
 
 `FEATURES.md` is the product inventory. `RUN.md` is the current execution record. Do not create `STATUS.md`, `TASKS.md`, `PLAN.md`, `BACKLOG.md` or another duplicate tracker by default.
 
-## 1. UNDERSTAND (READ REALITY)
+## 1. READ (UNDERSTAND REALITY)
 
 Read before asking:
 
@@ -65,7 +73,7 @@ For a new project brief, inspect the available project files first. For an exist
 
 Do not repeatedly ask questions already answered in the repository, conversation, `FEATURES.md` or `RUN.md`.
 
-## 2. CLARIFY (ASK)
+## 2. CLARIFY
 
 Ask one compact Quick round for only unresolved decisions:
 
@@ -77,7 +85,11 @@ Ask one compact Quick round for only unresolved decisions:
 
 Use Deep mode only when requested or when an unresolved branch could materially change behavior, architecture or safety. Give one practical recommendation for each question. Do not ask a long preference interview before ordinary development.
 
-## 3. SPECIFY (SPEC)
+## 3. FEATURES
+
+Create or update `FEATURES.md` before writing a spec when a project has more than a trivial change. Keep one row per feature and distinguish `EXISTING VERIFIED`, `REQUESTED`, `INFERRED` and incomplete work. Record user value, priority, complexity, acceptance criteria, dependencies and one owner. Use `TODO`, `READY`, `IN_PROGRESS`, `VERIFYING`, `DONE` or `BLOCKED`; `DONE` requires executed evidence for every acceptance criterion. Do not rebuild an existing verified capability from a claim alone.
+
+## 4. SPEC
 
 Create or update the smallest useful project state:
 
@@ -99,7 +111,7 @@ Create or update the project-root `RUN.md` from `templates/RUN.md`. Keep it comp
 
 Do not duplicate the complete product inventory in `RUN.md`; link to feature IDs and record only the current cycle.
 
-## 4. PLAN
+## 5. PLAN
 
 Turn the acceptance cases into the smallest dependency-aware vertical slices:
 
@@ -113,7 +125,7 @@ Every task has exactly one bounded result, one owner, allowed paths or an isolat
 
 At the end of planning, present a concise execution proposal. Do not start code-changing work or spawn workers merely because `FEATURES.md` and `RUN.md` are complete.
 
-## 5. APPROVE
+## 6. APPROVE
 
 Proceed to execution only when one of these is true:
 
@@ -124,7 +136,7 @@ Planning artifacts may be created or updated before approval. An implementation 
 
 For prototype mode, require a runnable result, accepted scope, critical tests, demonstrable behavior and clear limitations. For release mode, also require review, regression and operational checks, required CI, approved merge and post-merge verification.
 
-## 6. DISPATCH
+## 7. DISPATCH
 
 Before starting code-changing workers, resolve only settings that are still unknown. Reuse settled values from conversation, `RUN.md` and an applicable profile. Confirm:
 
@@ -141,7 +153,7 @@ Prefer Pi plus Herdr when available, but use one primary orchestrator rather tha
 
 Each worker receives one task envelope with a task/feature ID, one result, relevant context, allowed paths or isolated worktree, contracts, dependencies, definition of done, exact verification commands, prohibited unrelated changes and an expected completion report. No two active code-changing workers own the same mutable file or shared contract. The lead owns `RUN.md`, shared interfaces, integration, evidence and final acceptance.
 
-## 7. BUILD
+## 8. BUILD
 
 Build the smallest complete vertical slice:
 
@@ -151,7 +163,7 @@ Build the smallest complete vertical slice:
 
 Reuse the existing stack, libraries, infrastructure and conventions. Prefer boring, clear code. Use `tdd` when a behavior seam benefits from red → green → refactor. Avoid speculative abstractions, unrelated refactors, premature microservices and new infrastructure. A worker's pane, branch, commit or report is not product acceptance.
 
-## 8. VERIFY
+## 9. VERIFY
 
 Verify the product journey, not merely the implementation:
 
@@ -169,13 +181,13 @@ Record exact commands and observed results in `RUN.md`. Use only:
 
 Update feature rows from evidence. Never mark a feature `DONE` from a plan, a green unit test alone, a worker completion message or an unexecuted command.
 
-## 9. SHIP
+## 10. SHIP
 
 Review the complete diff for correctness, scope, regressions, secrets and unnecessary changes. Use `code-review` and `pr` when the change warrants them. For release mode, use a focused branch and pull request, wait for required CI and review, merge only when approved, and verify the merged result. For a local prototype, deliver the runnable result and explicit limitations without pretending it is a production release.
 
 If delivery is not authorized or a required check is unavailable, report the exact boundary rather than implying it happened.
 
-## 10. IMPROVE
+## 11. ITERATE
 
 After the cycle, compare the intended outcome with observed usage, feedback, failures, support cost and the leading measure. Keep, remove, revise or expand based on evidence. Update `FEATURES.md` and the next-action section of `RUN.md`; do not preserve a feature because it took effort to build.
 

@@ -27,3 +27,7 @@ jobs:
       - run: bash scripts/smoke-links.sh
       - run: python scripts/smoke-profile.py
       - run: python scripts/smoke-workflow.py
+      - run: python scripts/route-stack.py --self-test
+      - run: python scripts/grade-evals.py --check
+      - run: python scripts/grade-evals.py --self-test
+      - run: python scripts/smoke-runtime.py

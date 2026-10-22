@@ -1,0 +1,1 @@
+{"fixture":"E08","files":{"package.json":"{\"dependencies\":{\"expo\":\"50\"}}","eas.json":"{}"},"screen":"data list","ui_states":["loading","empty","error","content"],"device_available":false,"eas_authorized":false}

@@ -1,0 +1,1 @@
+{"fixture":"E04","tasks":[{"id":"A","owner":"worker-a","paths":["shared/schema.json"]},{"id":"B","owner":"worker-b","paths":["shared/schema.json"]},{"id":"C","owner":"worker-c","paths":["fixtures/e04/input.json"]}],"shared_contracts":["shared/schema.json"]}

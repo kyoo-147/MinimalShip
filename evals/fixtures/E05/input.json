@@ -1,0 +1,1 @@
+{"fixture":"E05","worker_report":{"status":"DONE","claim":"PASS","changed_paths":["src/feature.py"],"check":{"command":"python -m pytest","exit_code":1,"output":"1 failed"}}}

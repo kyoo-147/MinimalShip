@@ -1,75 +1,86 @@
-# MinimalShip refinement - 2026-10-22
+# MinimalShip v0.5 major update - 2026-10-22
 
-This is the current-cycle checkpoint for the final workflow refinement. The product inventory lives in `FEATURES.md`.
+This is the active-cycle checkpoint for the research-grounded major update. The product inventory lives in `FEATURES.md`; this file records only current execution state, evidence and resume information.
 
 ## Current cycle
 
-- Current project objective / Primary objective: make MinimalShip plan before execution, track state in two compact files, keep profiles optional, and harden installation evidence.
-- Branch / worktree: `feat/refine-workflow-state` / repository root
+- Current project objective / Primary objective: add behavioral proof, opt-in stack-aware routing and repeatable runtime/resume evidence without growing MinimalShip into a framework.
+- Branch / worktree: `feat/major-update-evals-routing` / repository root; code-changing workers use isolated worktrees
 - Mode: release
-- Current MUST scope (feature IDs): F4, F5, F6
-- Current NOT NOW scope: new skills, hosted tracking, new orchestration framework, release tag, CI billing remediation
-- Exact next action: wait for required review/check resolution on PR #7; if billing is fixed, rerun Actions and verify the merged result
-- Last meaningful update: pushed `feat/refine-workflow-state` and opened PR #7; local gate passed and live Actions failed before steps because of the account billing lock
+- Current MUST scope (feature IDs): F7, F8, F9, F10
+- Current NOT NOW scope: P2 context/memory/telemetry optimization, new promoted skills, vendored external repositories, cloud/EAS operations, release tag and merge bypass
+- Exact next action: review the complete diff, commit the verified v0.5 slice, push the branch and open a focused PR
+- Last meaningful update: integrated bounded E01-E08 and routing outputs, repaired workflow/check/template integration, and completed the deterministic local gate
 
 ## Confirmed decisions
 
-- User / problem: MinimalShip must be clear, resumable and evidence-driven without forcing an unrelated profile interview or spawning workers before approval.
-- Desired result and leading measure: a user can inspect a project, receive `FEATURES.md` and `RUN.md`, approve a bounded plan, then execute and verify one vertical slice; leading measure is successful local state/profile/installer smoke coverage.
-- Constraints and assumptions: preserve the root skill and 27 promoted skills; keep public content neutral English; keep `docs/`, `analysis/` and `.local/` local-only; do not create duplicate trackers.
-- Decisions already settled: use one primary orchestrator; require one owner per mutable file; distinguish planning from execution; use neutral defaults when no profile is configured; require scoped approval for workers and external effects.
-- Open decision or `BLOCKED` item: GitHub Actions may remain blocked by the account billing lock; no release tag is claimed by this run.
+- User / problem: MinimalShip must prove agent behavior, select external specialist guidance only when evidence warrants it, and remain minimal, resumable and evidence-driven.
+- Desired result and leading measure: a lead can take a project from READ through ITERATE with explicit feature inventory, approval, bounded ownership, real verification and honest blockers; leading measure is reproducible PASS/FAIL/BLOCKED evidence for E01-E08 and runtime boundaries.
+- Constraints and assumptions: preserve the root skill and 27 promoted skills; keep public content original English; keep `docs/`, `analysis/` and `.local/` local-only; do not vendor third-party skill repositories; do not install, deploy or charge external services automatically.
+- Decisions already settled: use one primary Herdr orchestrator with Pi as lead; maximum two workers; isolate code-changing workers; lead owns shared docs/manifests/integration; existing project versions/configuration remain authoritative; official Cloudflare, Expo and Vercel guidance is opt-in and project-scoped.
+- Open decision or `BLOCKED` item: the explicit evaluator route is currently blocked by an invalidated OAuth token; the default configured `gpt-6.1-sol` path remains unsupported. Native/device, EAS, cloud and deployment checks remain unavailable unless separately approved; GitHub Actions is billing-blocked.
 
 ## Acceptance and demo
 
 | ID | Real input/action | Expected result | Evidence command or observation | Status |
 |---|---|---|---|---|
-| A1 | Run `python scripts/check.py` and `node scripts/sync-plugin-version.mjs --check` | Bundle structure and synchronized version pass | `PASS: MinimalShip bundle validated: 27 promoted skills, 5 references, 4 templates`; `PASS: plugin version 0.4.0` | PASS |
-| A2 | Run profile, project and rollback installer smoke checks | Flat root plus 27 promoted skills install; conflicts and failed replacements are safe | `python scripts/smoke-install.py` -> PASS; `python scripts/smoke-links.sh` -> PASS | PASS |
-| A3 | Run the profile smoke check with no profile, partial profile and scoped gates | Neutral defaults work; strict profile and execution boundaries remain explicit | `python scripts/smoke-profile.py` -> PASS; current private profile -> `PASS: PROFILE_COMPLETE`, `PASS: PERMISSIONS_READY`, `PASS: DISPATCH_READY` | PASS |
-| A4 | Run the workflow contract smoke check | Ordered phases, state-file fields, approval gate, bounded tasks and evidence language are present | `python scripts/smoke-workflow.py` -> PASS | PASS |
-| A5 | Inspect Pi and Herdr runtime | Pi and Herdr versions and active pane/runtime are known before dispatch | `pi --version` -> `1.4.0`; `herdr --version` -> `0.9.5`; server running and compatible; visible pane has no LSP/extension status widget | PASS |
-| A6 | Run the installed Pi skill loader for global and separate-profile installs | Root and 27 promoted skills load without diagnostics; representative names resolve | Pi `loadSkills()` returned global 29 skills / profile 28 skills; `minimalship`, `implement`, `prototype`, `grill-me` all present | PASS |
-| A7 | Inspect latest GitHub Actions run and annotations | Distinguish infrastructure/account failure from source failure | Run `39725819863` failed before steps; annotation says account locked due to billing issue | PASS |
+| A1 | Run the existing structural, installer, profile, link and workflow checks | Prior verified functionality remains green | `npm run check`, `bash scripts/list-skills.sh`, all smoke scripts and version check | PASS |
+| A2 | Refresh global/profile installs and run the installed Pi loader | Root plus 27 promoted skills resolve with no loader diagnostics | `python scripts/smoke-runtime.py`: Pi loader PASS, global 29 / profile 28 observed | PASS |
+| A3 | Run the E01-E08 behavioral evaluator with live adapter when available | Each scenario emits structured PASS, FAIL or BLOCKED; no blocked case is mislabeled PASS | `python scripts/run-evals.py --json --model openai-codex/gpt-5.6-luna --output .local/evals-v05-live.json`: all E01-E08 `BLOCKED` because the OAuth token was invalidated; exit 2 preserved | BLOCKED |
+| A4 | Run deterministic evaluator/schema and baseline checks | Eight scenarios, expected outcomes and graders are complete and machine-readable | `python scripts/grade-evals.py --check` and `python scripts/route-stack.py --self-test` | PASS |
+| A5 | Run stack-routing positive and negative fixtures | Only evidence-backed official external guidance routes; no auto-install/deploy/charge | `python scripts/route-stack.py --self-test`; source/version evidence in `references/stack-routing.md` | PASS |
+| A6 | Run runtime, ownership, resume and release-boundary smoke checks | Pi/Herdr capability and unavailable states are explicit; overlap/false completion/resume rules hold | `python scripts/smoke-runtime.py`: structural/fixture, fresh-install loader, Pi and Herdr probes PASS; live worker dispatch is explicitly `BLOCKED` | BLOCKED |
+| A7 | Run current official-source/version and documentation consistency checks | Routing source policy, QA gates, templates and indexes agree | `python scripts/check.py`, `python scripts/smoke-workflow.py`, authenticated official GitHub metadata refresh | PASS |
+| A8 | Run full local gate and inspect complete diff | No unrelated changes; required checks are PASS or honest BLOCKED | Full local gate and diff review below; CI remains billing-blocked before steps | PASS |
 
 ## Approved execution policy
 
-- Lead CLI / provider / model / thinking: current Pi session; use installed model settings; no unsupported model invented
-- Worker CLI / provider / model / thinking: no worker required for this refinement; use Herdr only for an explicitly approved bounded task
-- Reviewer model, if any: local structural and runtime checks; independent review if a PR requires it
-- Primary orchestrator: none for implementation; Pi is lead and Herdr remains optional
-- Maximum workers / budget: zero active workers for this branch unless separately approved
-- Worktree and file ownership policy: lead owns all changed files; any future worker gets an isolated worktree or disjoint paths
-- Allowed edits, tools, installs, downloads, network, cloud and deployment: repository edits, local tests, authenticated GitHub branch/PR operations and global/profile skill refresh; no deployment or production data
-- Explicit approval still needed for: workers, credentials, paid APIs, cloud dashboards, migrations, deployment, destructive commands and release publication
+- Lead CLI / provider / model / thinking: Pi; explicit `openai-codex/gpt-5.6-luna` evaluator route is configured but blocked by invalidated OAuth; default `gpt-6.1-sol` selection is unsupported in this ChatGPT account
+- Worker CLI / provider / model / thinking: Pi workers through Herdr; `openai-codex/gpt-5.6-luna`, low thinking for bounded implementation
+- Reviewer model, if any: lead plus independent diff/evidence review; no additional paid reviewer
+- Primary orchestrator: Herdr; Pi remains the lead and decision owner; no competing orchestrator
+- Maximum workers / budget: two concurrent workers; bounded local task budget; no paid API, cloud or EAS spend
+- Worktree and file ownership policy: worker A owns `evals/**` and eval scripts; worker B owns `references/stack-routing.md` and route detector; lead owns `SKILL.md`, state/docs, package/check/CI integration and all shared contracts
+- Allowed edits, tools, installs, downloads, network, cloud and deployment: repository edits, local tests, read-only official-source verification, Git operations and existing authenticated runtime inspection; no new package install, cloud/EAS operation, deployment or destructive command
+- Explicit approval still needed for: paid model/API use, external skill installation, cloud/EAS actions, credentials, deployment, destructive operations and release publication
 
 ## Tasks and ownership
 
 | ID | Feature | One bounded result | Owner | Paths/worktree | Depends on | Size | Definition of done / check | Status |
 |---|---|---|---|---|---|---|---|---|
-| T1 | F4 | Add `FEATURES.md` and revise `RUN.md` plus root workflow for plan-before-execute | lead | `SKILL.md`, `README.md`, `templates/`, `FEATURES.md`, `RUN.md` | none | M | `python scripts/smoke-workflow.py` | DONE |
-| T2 | F5 | Make private profile optional and gate only relevant permissions/orchestration boundaries | lead | `scripts/profile-status.py`, profile docs/templates/tests | F3 | M | `python scripts/smoke-profile.py` | DONE |
-| T3 | F6 | Preserve unrelated installs and restore replaced paths after forced-install failure | lead | `scripts/install.py`, installer/link smoke tests, distribution docs | F2 | M | `python scripts/smoke-install.py` and `bash scripts/smoke-links.sh` | DONE |
-| T4 | F4-F6 | Integrate checks, review diff, refresh installations and deliver branch | lead | repository-wide | T1-T3 | M | complete local gate and PR/CI evidence | VERIFYING |
+| T5 | F7 | Add scenario schema, eight fixtures, deterministic grader and optional live Pi evaluator | lead (worker-a delivered) | integrated `evals/`, `scripts/run-evals.py`, `scripts/grade-evals.py` | F4, F5 | M | schema check passes; safe adapter emits honest JSON statuses and preserves BLOCKED | DONE |
+| T6 | F8 | Add evidence-based official stack routing reference and deterministic detector | lead (worker-b delivered) | integrated `references/stack-routing.md`, `scripts/route-stack.py` | F1, F4 | M | positive/negative fixtures pass; no install/deploy commands; source commits recorded | DONE |
+| T7 | F9 | Integrate repeatable runtime, ownership, resume and release-boundary checks | lead | repository root; `scripts/smoke-runtime.py`, state fixtures and integration docs | F7 | M | runtime report distinguishes PASS/FAIL/BLOCKED; resume/ownership fixtures pass | VERIFYING |
+| T8 | F10 | Align READ-to-ITERATE core workflow, templates, docs, CI and version/changelog metadata | lead | shared root docs, templates, scripts, package/CI | T5, T6 | M | full local gate plus complete diff review | DONE |
 
 ## Active workers and dependencies
 
-- Active workers: none
-- Ready frontier: T4 local gate and delivery review
-- Shared files or contracts with one owner: root workflow, state templates, installer and profile helper all owned by lead
-- Worker reports awaiting integration: none
+- Active workers: none; bounded worker-a/worker-b worktrees were reviewed and integrated, while user-controlled panes remain untouched
+- Ready frontier: lead-owned final review, commit, push and PR creation; live evaluator, CI and native/cloud checks remain blocked
+- Shared files or contracts with one owner: lead owns root workflow, `FEATURES.md`, `RUN.md`, templates, package metadata, CI, check script and integration decisions
+- Worker reports awaiting integration: none; implementation outputs are integrated and lead-owned checks have been rerun
+
+## Resume checkpoint
+
+- Checkpoint ID: `v0.5-integrated-local-gate`
+- Current branch: `feat/major-update-evals-routing`
+- Last verified: structural, workflow, routing, eval-schema, compile, diff, Pi-loader, Herdr and deterministic runtime checks passed; live gaps remain BLOCKED
+- Settled requirements: preserve 27 skills; add E01-E08 behavior evidence; opt-in official routing; no auto-install/deploy; two isolated workers; honest PASS/FAIL/BLOCKED
+- Current blockers: native/device runtime unavailable for E08; default `gpt-6.1-sol` selection remains unsupported; GitHub billing lock and unavailable native/cloud services remain
+- Exact next action after resume: review the complete diff, commit with a Conventional Commit, push the branch and open the focused PR
+- Do not repeat: prior F1-F6 installer/profile/workflow implementation, source audit or worker implementation work
 
 ## Verification and evidence
 
-- Run / build / start / smoke command: `npm run check`; `python scripts/smoke-install.py`; `bash scripts/smoke-links.sh`; `python scripts/smoke-profile.py`; `python scripts/smoke-workflow.py`
-- Tests, typechecks, lint, format, build and security checks actually executed: full `npm run` check/smoke/version suite, Python compileall, shell syntax, `git diff --check`, pi-lens LSP diagnostics (5 files clean; one server inconclusive); Ruff/Pyright binaries are not installed in this shell
-- Primary journey evidence: workflow contract confirms Understand → Clarify → Specify → Plan → Approve → Dispatch → Build → Verify → Ship → Improve and state records; installed Pi loader resolves root and representative commands
-- Important failure-case evidence: incomplete profile uses neutral defaults; permission/dispatch gates block narrowly; forced installer failure restores previous paths; symlink target remains intact
-- Latest results: `PASS` for all local checks above; PR #7 Actions run `39731313540` is `BLOCKED` by the account billing lock before job steps
+- Run / build / start / smoke command: `npm run check`; `bash scripts/list-skills.sh`; `node scripts/sync-plugin-version.mjs --check`; all smoke scripts; `python scripts/route-stack.py --self-test`; `python scripts/grade-evals.py --check`; `python -m compileall -q scripts`; `git diff --check`
+- Tests, typechecks, lint, format, build and security checks actually executed: structural, installer, link, profile, workflow, routing, eval-schema, compile and diff checks passed; Ruff/Pyright are unavailable; no product runtime build is required for this bundle
+- Primary journey evidence: E01-E08 schema/fixtures and safe planning-only adapter are integrated; no-Pi probe returned BLOCKED for every scenario without mislabeling
+- Important failure-case evidence: ownership overlap, false completion, resume checkpoint, install boundary and unavailable runtime states passed deterministic checks; live worker dispatch remains explicitly BLOCKED
+- Latest results: E01-E08 `BLOCKED` on the latest live attempt; deterministic grader and runner self-tests `PASS`; F8/F10 `DONE`; F7/F9 `VERIFYING`; unavailable CI, native, cloud and deployment evidence remains `BLOCKED`, not PASS
 
 ## Blockers and next iteration
 
-- Current blockers: GitHub Actions cannot start while the account billing lock remains; live post-merge CI evidence is unavailable
-- Known limitations: a real model-backed `/skill:...` invocation could not complete because the available provider/model authentication did not accept the runtime selection; no worker was dispatched; no `0.4.0` release tag has been published
-- Measure or user feedback: local contract and regression checks are green; runtime journey still needs a small bounded demonstration
-- Next highest-impact improvement: complete the PR review, run a planning-only Pi journey if the provider is available, and resolve billing before relying on post-merge CI
+- Current blockers: explicit evaluator run fails authentication with `Encountered invalidated oauth token for user, failing request`; default Pi selection fails with `The 'gpt-6.1-sol' model is not supported when using Codex with a ChatGPT account`; GitHub Actions cannot start because the account is locked for billing; native/device, EAS, cloud, deployment and paid-service checks are unavailable or unauthorized
+- Known limitations: no release tag or merged-result verification; live worker dispatch was not claimed by the non-mutating smoke command; research source commits remain provenance, not installation pins
+- Measure or user feedback: deterministic checks now cover behavior schema, route precision, resume fidelity, ownership overlap, false completion and capability blockers
+- Next highest-impact improvement: restore supported model/CI/native capabilities, rerun blocked checks, then address review or CI findings before merge or release

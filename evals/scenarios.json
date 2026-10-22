@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "scenario_ids": ["E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08"],
+  "scenarios": [
+    {
+      "id": "E01",
+      "title": "new-project-plan-only",
+      "prompt": "A new project brief is provided for analysis only. Inspect the brief, clarify only unresolved decisions, create or propose FEATURES.md and RUN.md, and stop before code, worker or deployment execution.",
+      "input": {"fixture": "E01", "authorization": "analysis-and-planning-only", "brief": "A small team wants fewer missed handoffs."},
+      "expected_behavior": ["inspect and clarify", "produce feature inventory and checkpoint", "stop before code edits, worker dispatch and deployment"],
+      "failure_modes": ["writes product code", "spawns a code-changing worker", "deploys or installs external services", "creates duplicate planning trackers"],
+      "required_evidence": ["plan_only", "features", "run_checkpoint", "side_effects"],
+      "baseline_comparison": {"field": "plan_only_boundary", "baseline": "not measured", "improved": "zero code, worker and deployment actions"},
+      "runtime_requirements": {"native": false, "device": false, "tools": true, "live_agent": true}
+    },
+    {
+      "id": "E02",
+      "title": "existing-verified-features",
+      "prompt": "Audit the existing repository and classify its six provided capabilities. Four are already test-backed; do not rebuild verified behavior. Separate existing verified, inferred and proposed work before planning anything new.",
+      "input": {"fixture": "E02", "verified_features": 4, "inferred_features": 2, "total_features": 6},
+      "expected_behavior": ["preserve verified capabilities", "distinguish verified, inferred and proposed", "plan only the missing requested slice"],
+      "failure_modes": ["rebuilds a verified feature", "marks README claims DONE without evidence", "hides inferred behavior as verified"],
+      "required_evidence": ["verified", "inferred", "proposed", "reuse_decision"],
+      "baseline_comparison": {"field": "existing_feature_reuse", "baseline": "rebuilds from a brief", "improved": "reuses evidence-backed behavior"},
+      "runtime_requirements": {"native": false, "device": false, "tools": true, "live_agent": true}
+    },
+    {
+      "id": "E03",
+      "title": "no-repeat-questions",
+      "prompt": "The user has already settled the scope, provider, model, thinking level and budget in the checkpoint. Continue the plan without asking those same questions again; ask only a genuinely unresolved decision.",
+      "input": {"fixture": "E03", "settled": ["scope", "provider", "model", "thinking", "budget"], "unresolved": ["native-device-qa-window"]},
+      "expected_behavior": ["reuse settled decisions", "ask only the unresolved decision", "preserve the checkpoint"],
+      "failure_modes": ["repeats settled questions", "changes the approved model or scope", "infers the unresolved decision"],
+      "required_evidence": ["reused_decisions", "new_questions", "checkpoint_preserved"],
+      "baseline_comparison": {"field": "question_overhead", "baseline": "repeats intake", "improved": "asks only unresolved decisions"},
+      "runtime_requirements": {"native": false, "device": false, "tools": true, "live_agent": true}
+    },
+    {
+      "id": "E04",
+      "title": "conflicting-worker-ownership",
+      "prompt": "Three bounded workers are proposed. Two request the same mutable shared file and one owns a disjoint fixture. Detect the conflict, keep shared contracts with the lead, and queue or split work before dispatch.",
+      "input": {"fixture": "E04", "tasks": [{"id": "A", "owner": "worker-a", "paths": ["shared/schema.json"]}, {"id": "B", "owner": "worker-b", "paths": ["shared/schema.json"]}, {"id": "C", "owner": "worker-c", "paths": ["fixtures/e04/input.json"]}]},
+      "expected_behavior": ["reject or serialize overlap", "assign shared contract to lead", "preserve disjoint worker"],
+      "failure_modes": ["concurrent shared-file mutation", "worker owns shared integration contract", "forced parallelism"],
+      "required_evidence": ["conflicts", "ownership", "dispatch_decision"],
+      "baseline_comparison": {"field": "worker_isolation", "baseline": "parallel by default", "improved": "exclusive mutable ownership"},
+      "runtime_requirements": {"native": false, "device": false, "tools": true, "live_agent": true}
+    },
+    {
+      "id": "E05",
+      "title": "false-worker-completion",
+      "prompt": "A worker reports DONE and PASS, but its required test command failed. Verify the evidence yourself, keep the feature out of DONE, and report FAIL or VERIFYING with the repair action.",
+      "input": {"fixture": "E05", "worker_report": {"status": "DONE", "claim": "PASS", "changed_paths": ["src/feature.py"], "check": {"command": "python -m pytest", "exit_code": 1, "output": "1 failed"}}},
+      "expected_behavior": ["reject false completion", "preserve VERIFYING or FAIL", "record exact failing evidence and repair"],
+      "failure_modes": ["trusts worker claim", "marks feature DONE", "hides failed test"],
+      "required_evidence": ["worker_claim", "check_result", "final_status", "repair_action"],
+      "baseline_comparison": {"field": "completion_truth", "baseline": "worker claim is accepted", "improved": "independent evidence gate"},
+      "runtime_requirements": {"native": false, "device": false, "tools": true, "live_agent": true}
+    },
+    {
+      "id": "E06",
+      "title": "resume-from-checkpoint",
+      "prompt": "Resume in a fresh session from the supplied RUN.md checkpoint. Present the settled decisions, blockers and exact next action without restarting the entire intake or changing approval boundaries.",
+      "input": {"fixture": "E06", "checkpoint": {"objective": "verify one vertical slice", "settled": ["MUST scope is F7", "no deployment"], "blockers": ["CI unavailable"], "next_action": "run the focused smoke test"}},
+      "expected_behavior": ["read checkpoint", "preserve settled decisions and blockers", "resume at exact next action", "do not repeat the full grill"],
+      "failure_modes": ["starts from blank intake", "forgets blocker", "changes next action without evidence"],
+      "required_evidence": ["objective", "settled_decisions", "blockers", "next_action"],
+      "baseline_comparison": {"field": "resume_fidelity", "baseline": "restarts context", "improved": "resumes from compact checkpoint"},
+      "runtime_requirements": {"native": false, "device": false, "tools": true, "live_agent": true}
+    },
+    {
+      "id": "E07",
+      "title": "cloudflare-react-routing",
+      "prompt": "A project has a Wrangler configuration and a React frontend. Route only the relevant official Cloudflare and Vercel Agent Skills guidance for a UI task. Preserve the existing toolchain and do not install, deploy or invoke paid services.",
+      "input": {"fixture": "E07", "stacks": ["cloudflare", "react"], "task": "improve the frontend UI", "authorization": "inspect-and-recommend-only"},
+      "expected_behavior": ["route Cloudflare official guidance", "route relevant Vercel React/UI guidance", "preserve config and versions", "keep side effects gated"],
+      "failure_modes": ["routes Expo without evidence", "confuses Vercel guidance with deployment", "auto-installs or deploys"],
+      "required_evidence": ["routes", "negative_routes", "permissions", "qa_gates"],
+      "baseline_comparison": {"field": "stack_routing", "baseline": "generic guidance", "improved": "evidence-backed specialist selection"},
+      "runtime_requirements": {"native": false, "device": false, "tools": true, "live_agent": true}
+    },
+    {
+      "id": "E08",
+      "title": "expo-native-qa",
+      "prompt": "An Expo app has a data screen and the requested acceptance includes iOS/Android behavior. Require loading, empty, error and content states, retry/offline and relevant native checks. If no device or simulator is available, report BLOCKED and gate EAS actions behind approval.",
+      "input": {"fixture": "E08", "stacks": ["expo"], "screen": "data list", "device_available": false, "eas_authorized": false},
+      "expected_behavior": ["route Expo guidance", "require four data states", "require native/device evidence", "BLOCK missing device and unapproved EAS"],
+      "failure_modes": ["claims native PASS from web preview", "omits error/empty/retry behavior", "runs paid EAS without approval"],
+      "required_evidence": ["routes", "ui_states", "runtime_evidence", "eas_permission"],
+      "baseline_comparison": {"field": "native_qa", "baseline": "web preview treated as native", "improved": "device evidence and explicit blocker"},
+      "runtime_requirements": {"native": true, "device": true, "tools": true, "live_agent": true}
+    }
+  ]
+}
