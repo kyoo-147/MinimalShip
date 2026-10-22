@@ -9,8 +9,8 @@ This is the current-cycle checkpoint for the final workflow refinement. The prod
 - Mode: release
 - Current MUST scope (feature IDs): F4, F5, F6
 - Current NOT NOW scope: new skills, hosted tracking, new orchestration framework, release tag, CI billing remediation
-- Exact next action: push the current refinement commit on `feat/refine-workflow-state`, open a focused PR, and report any unavailable CI honestly
-- Last meaningful update: reviewed and committed the state/profile/installer refinement; the complete local gate passed
+- Exact next action: wait for required review/check resolution on PR #7; if billing is fixed, rerun Actions and verify the merged result
+- Last meaningful update: pushed `feat/refine-workflow-state` and opened PR #7; local gate passed and live Actions failed before steps because of the account billing lock
 
 ## Confirmed decisions
 
@@ -65,7 +65,7 @@ This is the current-cycle checkpoint for the final workflow refinement. The prod
 - Tests, typechecks, lint, format, build and security checks actually executed: full `npm run` check/smoke/version suite, Python compileall, shell syntax, `git diff --check`, pi-lens LSP diagnostics (5 files clean; one server inconclusive); Ruff/Pyright binaries are not installed in this shell
 - Primary journey evidence: workflow contract confirms Understand → Clarify → Specify → Plan → Approve → Dispatch → Build → Verify → Ship → Improve and state records; installed Pi loader resolves root and representative commands
 - Important failure-case evidence: incomplete profile uses neutral defaults; permission/dispatch gates block narrowly; forced installer failure restores previous paths; symlink target remains intact
-- Latest results: `PASS` for all local checks above; GitHub Actions `BLOCKED` by account billing lock before job steps
+- Latest results: `PASS` for all local checks above; PR #7 Actions run `39731313540` is `BLOCKED` by the account billing lock before job steps
 
 ## Blockers and next iteration
 
