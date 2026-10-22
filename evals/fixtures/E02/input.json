@@ -1,0 +1,1 @@
+{"fixture":"E02","verified_features":["login","handoff list","search","export"],"inferred_features":["notifications","bulk edit"],"total_features":6,"instruction":"reuse verified behavior; propose only missing scope"}

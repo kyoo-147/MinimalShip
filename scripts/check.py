@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -18,19 +19,19 @@ REMOVED_PATHS = {
     "sources",
 }
 REQUIRED_ROOT_MARKERS = (
+    "READ",
     "UNDERSTAND",
     "CLARIFY",
-    "SPECIFY",
-    "APPROVE",
-    "READ REALITY",
-    "ASK",
+    "FEATURES",
     "SPEC",
+    "APPROVE",
+    "Behavioral evidence",
     "PLAN",
     "DISPATCH",
     "BUILD",
     "VERIFY",
     "SHIP",
-    "IMPROVE",
+    "ITERATE",
     "FEATURES.md",
     "RUN.md",
     "PASS",
@@ -47,6 +48,21 @@ REQUIRED_REFERENCES = (
     "references/product-principles.md",
     "references/distribution.md",
     "references/profile.md",
+    "references/stack-routing.md",
+)
+REQUIRED_ROUTING_MARKERS = (
+    "Cloudflare",
+    "Expo/EAS",
+    "Vercel Agent Skills",
+    "auto-install",
+    "vendor",
+    "Existing configuration",
+    "loading, empty, error",
+    "device/emulator",
+    "rendered behavior",
+    "accessibility",
+    "performance",
+    "BLOCKED",
 )
 REQUIRED_TEMPLATES = (
     "templates/FEATURES.md",
@@ -145,6 +161,10 @@ def validate_root(root: Path) -> None:
         "scripts/smoke-links.sh",
         "scripts/smoke-profile.py",
         "scripts/smoke-workflow.py",
+        "scripts/grade-evals.py",
+        "scripts/run-evals.py",
+        "scripts/route-stack.py",
+        "scripts/smoke-runtime.py",
     ):
         if not (root / helper).is_file():
             fail(f"missing validation helper: {helper}")
@@ -152,6 +172,44 @@ def validate_root(root: Path) -> None:
     missing_profile_groups = [f"P{index:02d}." for index in range(1, 11) if f"P{index:02d}." not in profile_questions]
     if missing_profile_groups:
         fail(f"profile question catalog is missing groups: {', '.join(missing_profile_groups)}")
+
+
+def validate_evals(root: Path) -> None:
+    scenarios_path = root / "evals" / "scenarios.json"
+    data = load_json(scenarios_path)
+    expected = [f"E{index:02d}" for index in range(1, 9)]
+    if data.get("schema_version") != 1 or data.get("scenario_ids") != expected:
+        fail("evals/scenarios.json must declare schema_version 1 and scenario_ids E01-E08")
+    if not (root / "evals" / "README.md").is_file():
+        fail("missing evals/README.md")
+    scenarios = data.get("scenarios")
+    if not isinstance(scenarios, list) or [item.get("id") for item in scenarios if isinstance(item, dict)] != expected:
+        fail("evals/scenarios.json must contain exactly E01-E08 in order")
+    required = {"title", "prompt", "input", "expected_behavior", "failure_modes", "required_evidence", "baseline_comparison", "runtime_requirements"}
+    for item in scenarios:
+        if not isinstance(item, dict) or not required.issubset(item):
+            fail(f"eval scenario is missing required fields: {item}")
+        sid = item["id"]
+        fixture = root / "evals" / "fixtures" / sid / "input.json"
+        if not fixture.is_file():
+            fail(f"missing behavioral fixture: {fixture.relative_to(root)}")
+        fixture_data = load_json(fixture)
+        if fixture_data.get("fixture") != sid:
+            fail(f"behavioral fixture {sid} does not identify itself")
+
+
+def validate_routing(root: Path) -> None:
+    reference = read_text(root / "references/stack-routing.md")
+    missing = [marker for marker in REQUIRED_ROUTING_MARKERS if marker not in reference]
+    if missing:
+        fail(f"stack-routing reference is missing markers: {', '.join(missing)}")
+    forbidden = (r"\bnpx\s+skills\s+add\b", r"\bnpm\s+install\b", r"\byarn\s+add\b", r"\bpnpm\s+add\b", r"\beas\s+build\b", r"\bwrangler\s+deploy\b", r"\bvercel\s+deploy\b")
+    found = [pattern for pattern in forbidden if re.search(pattern, reference, flags=re.IGNORECASE)]
+    if found:
+        fail(f"stack-routing reference contains executable side-effect commands: {', '.join(found)}")
+    route_script = root / "scripts/route-stack.py"
+    if not route_script.is_file():
+        fail("missing stack-routing detector: scripts/route-stack.py")
 
 
 def validate_skill(root: Path, bucket: str, skill_dir: Path, root_readme: str, plugin_skills: set[str]) -> None:
@@ -202,6 +260,8 @@ def validate_public_content(root: Path, tracked: set[str]) -> None:
 def main() -> int:
     root = Path(__file__).resolve().parents[1]
     validate_root(root)
+    validate_evals(root)
+    validate_routing(root)
     tracked = git_files(root)
     validate_public_content(root, tracked)
 

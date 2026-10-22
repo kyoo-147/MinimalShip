@@ -55,6 +55,16 @@ Keep the complete product inventory in `FEATURES.md` and reference feature IDs h
 - Shared files or contracts with one owner:
 - Worker reports awaiting integration:
 
+## Resume checkpoint
+
+- Checkpoint ID:
+- Current branch:
+- Last verified:
+- Settled requirements:
+- Current blockers:
+- Exact next action after resume:
+- Do not repeat:
+
 ## Verification and evidence
 
 - Run / build / start / smoke command:

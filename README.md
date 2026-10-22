@@ -31,16 +31,17 @@ A MinimalShip cycle aims to leave:
 
 | Phase | Question | Proof of progress |
 |---|---|---|
-| UNDERSTAND | What exists and what can actually run? | Repository facts and available commands |
+| READ | What exists and what can actually run? | Repository facts and available commands |
 | CLARIFY | Which decisions are still owned by the user? | One accepted outcome and permission contract |
-| SPECIFY | What behavior is in and out? | `FEATURES.md`, `RUN.md` and acceptance cases |
+| FEATURES | What already exists, is requested or is incomplete? | Evidence-backed feature inventory |
+| SPEC | What behavior is in and out? | `FEATURES.md`, `RUN.md` and acceptance cases |
 | PLAN | What is the smallest dependency-aware slice? | Owned tasks with checks |
 | APPROVE | Is execution authorized for this scope? | Explicit approval or implementation instruction |
 | DISPATCH | Which work is safe to parallelize? | Verified orchestrator, cap, and task envelopes |
 | BUILD | Does the critical path work end to end? | Runnable increment |
 | VERIFY | What did we actually execute? | Evidence and failure cases |
 | SHIP | Can another person use and review it? | Branch, PR, merge, and post-merge verification when authorized |
-| IMPROVE | What did observed use teach us? | A measured next product decision |
+| ITERATE | What did observed use teach us? | A measured next product decision |
 
 Quick clarification is the default. Deep grilling is available when ambiguity could change product behavior, architecture, or safety.
 
@@ -99,13 +100,14 @@ MinimalShip/
 │   ├── misc/                        # Optional, not promoted
 │   ├── in-progress/                 # Experimental, not promoted
 │   └── deprecated/                  # Retired, not promoted
-├── references/                      # Root workflow guidance, including profile boundary
+├── references/                      # Root workflow, profile and stack-routing guidance
+├── evals/                            # E01-E08 behavioral scenarios and fixtures
 ├── templates/                       # FEATURES, RUN, spec, ADR, and private-profile shapes
 │   └── profile/                     # Neutral templates and first-run questions
 ├── handbook/                        # Public human-facing skill pages
 ├── .agents/                         # Invocation, release, and authoring rules
 ├── .claude-plugin/                  # Plugin and marketplace manifests
-└── scripts/                         # Install, link, list, sync, and check tools
+└── scripts/                         # Install, routing, eval, runtime, and check tools
 ```
 
 This repository keeps `docs/`, `analysis/`, and `.local/` local-only by project policy. Public human-facing pages live under `handbook/` instead of the ignored `docs/` directory.
@@ -161,6 +163,8 @@ When a project needs explicit feature tracking, `FEATURES.md` is the product inv
 
 MinimalShip plans before execution. It may create or update these two state files while researching, then presents the execution proposal. Code-changing work and worker dispatch begin only after explicit approval or an implementation instruction.
 
+When a project shows Cloudflare, Expo/EAS, React, Next.js or React Native evidence, MinimalShip may recommend the smallest relevant official external skill family. Routing is opt-in and project-scoped: it never vendors, auto-installs, upgrades the stack, deploys or invokes paid services. See `references/stack-routing.md`.
+
 ## Maintainer checks
 
 ```bash
@@ -171,11 +175,15 @@ python scripts/smoke-install.py
 python scripts/smoke-links.sh
 python scripts/smoke-profile.py
 python scripts/smoke-workflow.py
+python scripts/route-stack.py --self-test
+python scripts/grade-evals.py --check
+python scripts/grade-evals.py --self-test
+python scripts/smoke-runtime.py
 python scripts/init-profile.py --help
 python scripts/profile-status.py --help
 ```
 
-Run `python scripts/smoke-install.py` against a temporary profile before changing the distribution boundary. Use `bash scripts/link-skills.sh --check <target>` to inspect link conflicts, and pass `--force` only when replacement is deliberate. Use `npm run check` when Node package metadata is available.
+Run `python scripts/smoke-install.py` against a temporary profile before changing the distribution boundary. Use `bash scripts/link-skills.sh --check <target>` to inspect link conflicts, and pass `--force` only when replacement is deliberate. Use `npm run check` when Node package metadata is available. `smoke-runtime.py` is report-only: an unavailable live worker, device or model capability remains `BLOCKED`, never `PASS`. Run `python scripts/run-evals.py --json` only when the configured model-backed evaluation is authorized; its exit code is 2 when any scenario is blocked.
 
 ## Architecture reference
 
